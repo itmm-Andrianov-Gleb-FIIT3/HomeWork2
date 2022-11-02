@@ -1,41 +1,30 @@
 #include <stdio.h>
 #include <limits.h>
-#include <locale.h>
 #include <math.h>
-#include <malloc.h>
+#include <windows.h>
+
 int main() {
-	setlocale(LC_ALL, "rus");
 
-	int* mass;
-	int size;
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 
-	printf("Введите количество элементов: ");
-	scanf_s("%d", &size);
-	mass = (int*)malloc(sizeof(int) * size);
+	int EQ, E, SOS, Pr;
+	Pr = 0;
+	SOS = 0;
 
+	printf("Количество элементов: ");
+	scanf_s("%d", &EQ);
 
-	printf("Вводите элементы: ");
-	for (int i = 0; i < size; i++) {
-		scanf_s("%d", &mass[i]);
+	while (Pr < EQ)
+	{
+		printf("Вводите элементы: ");
+		scanf_s("%d", &E);
+		system("cls");
+		SOS += pow(E, 2);
+		Pr++;
 	}
 
-	printf("\n");
-	for (int g = 0; g < size; g++) {
-		printf("%d ", mass[g]);
-	}
-
-	printf("\n");
-	for (int y = 0; y < size; y++) {
-		mass[y] = pow(mass[y], 2);
-		printf("%d ", mass[y]);
-	}
-
-	printf("\n");
-	for (int f = 0; f < size - (size - 1); f++) {
-		mass[f] = mass[f] + mass[f + 1];
-		printf("Сумма квадратов элементов равна [ %d ]\n", mass[f]);
-	}
-	free(mass);
+	printf("Сумма квадратов элементов равна = %d\n", SOS);
 	system("pause");
 	return 0;
 }
