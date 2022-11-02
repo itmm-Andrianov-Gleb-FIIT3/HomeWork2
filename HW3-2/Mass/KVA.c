@@ -2,13 +2,40 @@
 #include <limits.h>
 #include <locale.h>
 #include <math.h>
+#include <malloc.h>
 int main() {
 	setlocale(LC_ALL, "rus");
-	int a, b, c, d, e, f, g, h, i, q;
-	float kva;
-	printf("Введите количество элементов: 10\n");
-	printf("Вводите элементы:");
-	scanf_s("%d %d %d %d %d %d %d %d %d %d", &a, &b, &c,&d, &e, &f, &g, &h, &i, &q);
-	kva = ((pow(a, 2) + pow(b, 2) + pow(c, 2) + pow(d, 2) + pow(e, 2) + pow(f, 2) + pow(g, 2) + pow(h, 2) + pow(i, 2) + pow(q,2)));
-	printf("Сумма квадратов элементов равн %.2f", kva);
+
+	int* mass;
+	int size;
+
+	printf("Введите количество элементов: ");
+	scanf_s("%d", &size);
+	mass = (int*)malloc(sizeof(int) * size);
+
+
+	printf("Вводите элементы: ");
+	for (int i = 0; i < size; i++) {
+		scanf_s("%d", &mass[i]);
+	}
+
+	printf("\n");
+	for (int g = 0; g < size; g++) {
+		printf("%d ", mass[g]);
+	}
+
+	printf("\n");
+	for (int y = 0; y < size; y++) {
+		mass[y] = pow(mass[y], 2);
+		printf("%d ", mass[y]);
+	}
+
+	printf("\n");
+	for (int f = 0; f < size - (size - 1); f++) {
+		mass[f] = mass[f] + mass[f + 1];
+		printf("Сумма квадратов элементов равна [ %d ]\n", mass[f]);
+	}
+	free(mass);
+	system("pause");
+	return 0;
 }
