@@ -31,3 +31,36 @@ struct Date createDate(int d, int m, int y) {
 	new_date.year = y;
 	return new_date;
 }
+
+struct BookInInt { 
+	std::string autors;
+	std::string name;
+	std::string publisher;
+};
+
+void createDate(struct BookInInt* new_date) {
+	int autors, name, publisher;
+	std::cout << "Input autors: ";
+	std::cin >> autors;
+	std::cout << "Input name: ";
+	std::cin >> name;
+	std::cout << "Input publisher: ";
+	std::cin >> publisher;
+	new_date->autors = autors;
+	new_date->name = name;
+	new_date->publisher = publisher;
+}
+
+struct FIO {
+	std::string last_name;
+	std::string first_name;
+	std::string patronymic;
+};
+
+struct FIO createDate(struct FIO date) {
+	struct FIO new_date;
+	new_date.last_name = date.last_name;
+	new_date.first_name = date.first_name;
+	new_date.patronymic = date.patronymic;
+	return new_date;
+}
