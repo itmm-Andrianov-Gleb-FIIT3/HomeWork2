@@ -18,7 +18,7 @@ int main() {
 
 	puts(str);
 	printf("Количество значимых знаков %d\n", amountOfSimbols(str));
-	printf("Количествострочных букв %d\n", amountOfLowercase(str));
+	printf("Количество строчных букв %d\n", amountOfLowercase(str));
 	printf("Количество заглавных букв %d\n", amountOfUppercase(str));
 	printf("Количество слов %d\n", amountOfWords(str));
 	system("pause");
@@ -80,4 +80,3 @@ int amountOfWords(char* str) {
 	}
 	return ++result;
 }
-

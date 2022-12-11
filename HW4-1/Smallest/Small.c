@@ -6,10 +6,10 @@ int main() {
 	setlocale(LC_ALL, "rus");
 	int* mass;
 	int size;
-	printf("¬ведите размер массива: ");
+	printf("Введите размер массива: ");
 	scanf_s("%d", &size);
 	mass = (int*)malloc(sizeof(int) * size);
-	printf("¬ведите массив: ");
+	printf("Введите массив: ");
 	for (int i = 0; i < size; i++) {
 		scanf_s("%d", &mass[i]);
 	}

@@ -16,10 +16,10 @@ int mass()
 {
 	int* mass;
 	int size;
-	printf("¬ведите размер массива: ");
+	printf("Введите размер массива: ");
 	scanf_s("%d", &size);
 	mass = (int*)malloc(sizeof(int) * size);
-	printf("¬ведите массив: ");
+	printf("Введите массив: ");
 	for (int i = 0; i < size; i++) {
 		scanf_s("%d", &mass[i]);
 	}
@@ -84,7 +84,7 @@ int loc_min(int* massiv, int k1)
 
 		}
 	}
-	printf("–езультат: минимальный из %d локальных минимумов [ ", k1);
+	printf("Результат: минимальный из %d локальных минимумов [ ", k1);
 	for (int g = 0; g < k1; g++)
 	{
 		printf("%d ", massiv[g]);
