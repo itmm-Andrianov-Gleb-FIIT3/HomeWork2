@@ -3,12 +3,8 @@
 #include<malloc.h>
 #include<string.h>
 #include<ctype.h>
-#include<windows.h>
 
 int main() {
-
-	SetConsoleCP(1251);
-	SetConsoleOutputCP(1251);
 
 	char* str;
 	str = (char*)malloc(sizeof(char*) * 100);
@@ -28,7 +24,7 @@ int main() {
 	while (1)
 	{
 		system("cls");
-		printf("1)change string \n2)cut the string\n3)reverse\n4)change register\n0)exit\n");
+		printf("1)change string\n2)cut the string\n3)reverse\n4)change register\n0)exit\n");
 		scanf_s("%d", &userInput);
 
 		if (userInput == 0) {

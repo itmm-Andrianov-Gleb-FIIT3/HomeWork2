@@ -56,5 +56,4 @@ int swap(int* arr, int mass, int arri, int max) {
 			arr[i] = buff;
 		}
 	}
-
 }
