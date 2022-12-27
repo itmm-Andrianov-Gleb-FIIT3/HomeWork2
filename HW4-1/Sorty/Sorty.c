@@ -8,12 +8,12 @@ int main() {
 	SetConsoleOutputCP(1251);
 
 
-	int mass;
+	int size;
 	printf("Введите размер массива: ");
-	scanf_s("%d", &mass);
-	int* arr = (int*)malloc(sizeof(int) * mass);
-	for (int i = 0; i < mass; i++) {
-		arr[i] = 1 + rand() % 100;
+	scanf_s("%d", &size);
+	int* arr = (int*)malloc(sizeof(int) * size);
+	for (int i = 0; i < size; i++) {
+		arr[i] = -50 + rand() % 151;
 		printf("%d ", arr[i]);
 	}
 
@@ -21,9 +21,9 @@ int main() {
 	printf("\n");
 
 
-	sort(arr, mass);
+	sort(arr, size);
 
-	for (int i = 0; i < mass; i++) {
+	for (int i = 0; i < size; i++) {
 		printf("%d ", arr[i]);
 	}
 	printf("\n");
@@ -32,28 +32,26 @@ int main() {
 
 }
 
-int sort(int* arr, int mass) {
-	for (int i = mass; i > 0; i--) {
+void sort(int* arr, int size) {
+	for (int i = size; i > 0; i--) {
 		swap(arr, i, arr[i], foundMax(arr, i));
 	}
 }
 
-int foundMax(int* arr, int mass) {
-	int max = 0;
-	for (int i = 0; i < mass; i++) {
+int foundMax(int* arr, int size) {
+	int max = -1000;
+	int indmax;
+	for (int i = 0; i < size; i++) {
 		if (arr[i] > max) {
 			max = arr[i];
+			indmax = i;
 		}
 	}
-	return max;
+	return indmax;
 }
 
-int swap(int* arr, int mass, int arri, int max) {
-	int buff = arr[mass - 1];
-	arr[mass - 1] = max;
-	for (int i = 0; i < mass - 1; i++) {
-		if (arr[i] == max) {
-			arr[i] = buff;
-		}
-	}
+int swap(int* arr, int size, int arri, int indmax) {
+	int buff = arr[size - 1];
+	arr[size - 1] = arr[indmax];
+	arr[indmax] = buff;
 }

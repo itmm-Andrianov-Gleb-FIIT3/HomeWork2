@@ -9,7 +9,7 @@ int main() {
 	char* str;
 	str = (char*)malloc(sizeof(char*) * 100);
 	int userInput = 1;
-	printf("input string \n");
+	printf("Введите строку: \n");
 	gets(str);
 
 	int len = 0;
@@ -24,7 +24,7 @@ int main() {
 	while (1)
 	{
 		system("cls");
-		printf("1)change string\n2)cut the string\n3)reverse\n4)change register\n0)exit\n");
+		printf("1)Написать новую строку\n2)Обрезать строку\n3)Развернуть строку\n4)Сменить регистр [Таблица ASCII]\n0)Выход\n");
 		scanf_s("%d", &userInput);
 
 		if (userInput == 0) {
@@ -66,7 +66,7 @@ int main() {
 			while (1)
 			{
 				system("cls");
-				printf("1)to upper\n2)to lower\n3)to reversed\n0)back\n");
+				printf("1)Заменить на заглавные буквы\n2)Заменить на строчные буквы\n3)Заменить строчные на заглавные и наоборот\n0)Назад\n");
 				scanf_s("%d", &userCaseInput);
 
 				if (userCaseInput == 0)
@@ -110,7 +110,7 @@ char newString(char* str) {
 		len++;
 	}
 	while (len > 100) {
-		printf("pls try again");
+		printf("Пожжалуйста, попробуйте снова.");
 		gets(str);
 		while (str[len] != '\0') {
 			len++;

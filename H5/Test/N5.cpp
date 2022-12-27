@@ -39,7 +39,7 @@ struct BookInInt {
 };
 
 void createDate(struct BookInInt* new_date) {
-	int autors, name, publisher;
+	std::string autors, name, publisher;
 	std::cout << "Input autors: ";
 	std::cin >> autors;
 	std::cout << "Input name: ";

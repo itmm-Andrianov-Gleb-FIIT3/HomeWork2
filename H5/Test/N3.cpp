@@ -70,5 +70,6 @@ int main() {
 	struct Body size = { 200, 85 };
 	int age = 37;
 	std::string diagnosis = "Covid-19";
+	struct Patient Ivanov = { name, B_day,E_day,size,age,diagnosis };
 	return 0;
 }

@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{18099c3d-d6b8-491a-bdaa-3ca44843bf4a}</ProjectGuid>
-    <RootNamespace>N6</RootNamespace>
+    <ProjectGuid>{ac795c2b-0b6d-471f-be95-552129e62556}</ProjectGuid>
+    <RootNamespace>Cup</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="N6.cpp" />
+    <ClCompile Include="S.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

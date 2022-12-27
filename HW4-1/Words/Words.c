@@ -25,13 +25,20 @@ int main() {
 	return 0;
 }
 
-int amountOfSimbols(char* str) {
-	int sim = 0;
-	while (str[sim] != '\0') {
-		sim++;
+int len(char* str) {
+	int sym = 0;
+	while (str[sym] != '\0') {
+		sym++;
 	}
+	return sym;
+}
+
+int amountOfSimbols(char* str) {
+	
+	int sym = len(str);
+
 	int result = 0;
-	for (int i = 0; i < sim; i++) {
+	for (int i = 0; i < sym; i++) {
 		if (str[i] != ' ') {
 			result++;
 		}
@@ -40,13 +47,12 @@ int amountOfSimbols(char* str) {
 }
 
 int amountOfLowercase(char* str) {
-	int low = 0;
-	while (str[low] != '\0') {
-		low++;
-	}
+
+	int sym = len(str);
+
 	int result = 0;
-	for (int i = 0; i < low; i++) {
-		if (!(isupper(str[i])) && str[i] != ' ') {
+	for (int i = 0; i < sym; i++) {
+		if (islower(str[i])) {
 			result++;
 		}
 	}
@@ -54,12 +60,11 @@ int amountOfLowercase(char* str) {
 }
 
 int amountOfUppercase(char* str) {
-	int Up = 0;
-	while (str[Up] != '\0') {
-		Up++;
-	}
+	
+	int sym = len(str);
+
 	int result = 0;
-	for (int i = 0; i < Up; i++) {
+	for (int i = 0; i < sym; i++) {
 		if (isupper(str[i])) {
 			result++;
 		}
@@ -68,13 +73,12 @@ int amountOfUppercase(char* str) {
 }
 
 int amountOfWords(char* str) {
-	int word = 0;
-	while (str[word] != '\0') {
-		word++;
-	}
+
+	int sym = len(str);
+
 	int result = 0;
-	for (int i = 0; i < word - 2; i++) {
-		if ((str[i] != ' ') && (str[i + 1] == ' ') && (str[i + 2] != ' ')) {
+	for (int i = 0; i < sym - 2; i++) {
+		if ((str[i] != ' ') && (str[i + 1] == ' ')) {
 			result++;
 		}
 	}
