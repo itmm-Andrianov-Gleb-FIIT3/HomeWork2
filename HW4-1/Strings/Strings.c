@@ -32,7 +32,7 @@ int main() {
 		}
 		else if (userInput == 1) {
 			system("cls");
-			printf("print new string\n");
+			printf("Напишите новую строку: \n");
 			newString(str);
 			printf("new str: ");
 			puts(str);
@@ -40,17 +40,17 @@ int main() {
 		}
 		else if (userInput == 2) {
 			system("cls");
-			printf("print last index\n");
+			printf("Укажите индекс последнего значения: \n");
 			cutString(str);
 			puts(str);
 			system("pause");
 		}
 		else if (userInput == 3) {
 			system("cls");
-			printf("old str: ");
+			printf("Старая строка: ");
 			puts(str);
 			reverseString(str);
-			printf("new str:");
+			printf("Новая строка: ");
 			puts(str);
 			system("pause");
 		}
