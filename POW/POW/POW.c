@@ -10,20 +10,20 @@
 
 #define MAIN_MENU_SIZE 4
 
-//Подменю Режим эксперимента
+//РџРѕРґРјРµРЅСЋ Р РµР¶РёРј СЌРєСЃРїРµСЂРёРјРµРЅС‚Р°
 #define EXPERIMENT_MENU_SIZE 3 
 #define EFFICIENCY_MENU_SIZE 6
 
-//Подменю Алгоритмы
+//РџРѕРґРјРµРЅСЋ РђР»РіРѕСЂРёС‚РјС‹
 #define ALGORITHMS_MENU_SIZE 3
 #define SEARHC_MENU_SIZE 3
 #define SORT_MENU_SIZE 5
 
-//Подменю Настройки
+//РџРѕРґРјРµРЅСЋ РќР°СЃС‚СЂРѕР№РєРё
 #define SETTINGS_MENU_SIZE 4
 #define SET_ARRAY_MENU_SIZE 4
 
-// основные ключи, которые могут пригодитьс¤
+// РѕСЃРЅРѕРІРЅС‹Рµ РєР»СЋС‡Рё, РєРѕС‚РѕСЂС‹Рµ РјРѕРіСѓС‚ РїСЂРёРіРѕРґРёС‚СЊСЃВ¤
 #define KEY_EXIT 27
 #define KEY_ENTER 13
 #define ARROW_KEY 224
@@ -45,7 +45,7 @@ void random_generate_mass(int max_value, int min_value, int len, int* mass) {
 }
 
 void manually_generaye_mass(int len, int* mass) {
-    printf("Введите числа: ");
+    printf("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Р°: ");
     for (int i = 0; i < len; i++) {
         scanf_s("%d", &mass[i]);
     }
@@ -61,40 +61,40 @@ void print_mass(int* mass, int len) {
     printf("\n");
     return;
 }
-//Наивный поиск
+//РќР°РёРІРЅС‹Р№ РїРѕРёСЃРє
 void naive_search(int desired_value, int* mass, int len) {
     system("cls");
     int index_of_desired_value = -1;
     for (int i = 0; i < len; i++) {
         if (mass[i] == desired_value) {
             int index_of_desired_value = i;
-            printf("Индекс желаемого значения = %d\n", index_of_desired_value);
+            printf("РРЅРґРµРєСЃ Р¶РµР»Р°РµРјРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ = %d\n", index_of_desired_value);
             return;
         }
     }
 
     if (index_of_desired_value == -1) {
-        printf("Такого элемента в массиве нет.\n");
+        printf("РўР°РєРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ РјР°СЃСЃРёРІРµ РЅРµС‚.\n");
     }
 
     return;
 
 }
-//Бинарный поиск
+//Р‘РёРЅР°СЂРЅС‹Р№ РїРѕРёСЃРє
 void binary_search(int* mass, int len) {
 
     system("cls");
 
     for (int i = 0; i < len - 1; i++) {
         if (mass[i] > mass[i + 1]) {
-            printf("Невозможно применить бинарный поиск к неотсортированному массиву.\n");
+            printf("РќРµРІРѕР·РјРѕР¶РЅРѕ РїСЂРёРјРµРЅРёС‚СЊ Р±РёРЅР°СЂРЅС‹Р№ РїРѕРёСЃРє Рє РЅРµРѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅРѕРјСѓ РјР°СЃСЃРёРІСѓ.\n");
             return;
         }
     }
 
     int index_of_desired_value = -1;
 
-    printf("Введите желаемое значение: ");
+    printf("Р’РІРµРґРёС‚Рµ Р¶РµР»Р°РµРјРѕРµ Р·РЅР°С‡РµРЅРёРµ: ");
     int desired_value;
     scanf_s("%d", &desired_value);
 
@@ -114,14 +114,14 @@ void binary_search(int* mass, int len) {
         }
         else if (mass[midle] == desired_value) {
             index_of_desired_value = midle;
-            printf("Индекс желаемого значения: = %d\n", index_of_desired_value);
+            printf("РРЅРґРµРєСЃ Р¶РµР»Р°РµРјРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ: = %d\n", index_of_desired_value);
             break;
         }
 
     }
 
     if (index_of_desired_value == -1) {
-        printf("Такого элемента в массиве нет.\n");
+        printf("РўР°РєРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ РјР°СЃСЃРёРІРµ РЅРµС‚.\n");
     }
 
     return;
@@ -134,7 +134,7 @@ void swap(int* a, int* b) {
     *b = tmp;
 
 }
-//Сортировка пузырьком
+//РЎРѕСЂС‚РёСЂРѕРІРєР° РїСѓР·С‹СЂСЊРєРѕРј
 void bub_sort(int* mass, int len) {
     for (int i = len; i > 0; i--) {
         swap_bub(mass, i, mass[i], foundMax(mass, i));
@@ -158,42 +158,42 @@ int swap_bub(int* mass, int len, int massi, int indmax) {
     mass[indmax] = buff;
 
 }
-//Сортировка Хоара
+//РЎРѕСЂС‚РёСЂРѕРІРєР° РҐРѕР°СЂР°
 
 void fast_sort(int* mass, int left, int right)
 {
-    int pivot; // разрешающий элемент
-    int l_hold = left; //левая граница
-    int r_hold = right; // правая граница
+    int pivot; // СЂР°Р·СЂРµС€Р°СЋС‰РёР№ СЌР»РµРјРµРЅС‚
+    int l_hold = left; //Р»РµРІР°СЏ РіСЂР°РЅРёС†Р°
+    int r_hold = right; // РїСЂР°РІР°СЏ РіСЂР°РЅРёС†Р°
     pivot = mass[left];
-    while (left < right) // пока границы не сомкнутся
+    while (left < right) // РїРѕРєР° РіСЂР°РЅРёС†С‹ РЅРµ СЃРѕРјРєРЅСѓС‚СЃСЏ
     {
         while ((mass[right] >= pivot) && (left < right))
-            right--; // сдвигаем правую границу пока элемент [right] больше [pivot]
-        if (left != right) // если границы не сомкнулись
+            right--; // СЃРґРІРёРіР°РµРј РїСЂР°РІСѓСЋ РіСЂР°РЅРёС†Сѓ РїРѕРєР° СЌР»РµРјРµРЅС‚ [right] Р±РѕР»СЊС€Рµ [pivot]
+        if (left != right) // РµСЃР»Рё РіСЂР°РЅРёС†С‹ РЅРµ СЃРѕРјРєРЅСѓР»РёСЃСЊ
         {
-            mass[left] = mass[right]; // перемещаем элемент [right] на место разрешающего
-            left++; // сдвигаем левую границу вправо
+            mass[left] = mass[right]; // РїРµСЂРµРјРµС‰Р°РµРј СЌР»РµРјРµРЅС‚ [right] РЅР° РјРµСЃС‚Рѕ СЂР°Р·СЂРµС€Р°СЋС‰РµРіРѕ
+            left++; // СЃРґРІРёРіР°РµРј Р»РµРІСѓСЋ РіСЂР°РЅРёС†Сѓ РІРїСЂР°РІРѕ
         }
         while ((mass[left] <= pivot) && (left < right))
-            left++; // сдвигаем левую границу пока элемент [left] меньше [pivot]
-        if (left != right) // если границы не сомкнулись
+            left++; // СЃРґРІРёРіР°РµРј Р»РµРІСѓСЋ РіСЂР°РЅРёС†Сѓ РїРѕРєР° СЌР»РµРјРµРЅС‚ [left] РјРµРЅСЊС€Рµ [pivot]
+        if (left != right) // РµСЃР»Рё РіСЂР°РЅРёС†С‹ РЅРµ СЃРѕРјРєРЅСѓР»РёСЃСЊ
         {
-            mass[right] = mass[left]; // перемещаем элемент [left] на место [right]
-            right--; // сдвигаем правую границу влево
+            mass[right] = mass[left]; // РїРµСЂРµРјРµС‰Р°РµРј СЌР»РµРјРµРЅС‚ [left] РЅР° РјРµСЃС‚Рѕ [right]
+            right--; // СЃРґРІРёРіР°РµРј РїСЂР°РІСѓСЋ РіСЂР°РЅРёС†Сѓ РІР»РµРІРѕ
         }
     }
-    mass[left] = pivot; // ставим разрешающий элемент на место
+    mass[left] = pivot; // СЃС‚Р°РІРёРј СЂР°Р·СЂРµС€Р°СЋС‰РёР№ СЌР»РµРјРµРЅС‚ РЅР° РјРµСЃС‚Рѕ
     pivot = left;
     left = l_hold;
     right = r_hold;
-    if (left < pivot) // Рекурсивно вызываем сортировку для левой и правой части массива
+    if (left < pivot) // Р РµРєСѓСЂСЃРёРІРЅРѕ РІС‹Р·С‹РІР°РµРј СЃРѕСЂС‚РёСЂРѕРІРєСѓ РґР»СЏ Р»РµРІРѕР№ Рё РїСЂР°РІРѕР№ С‡Р°СЃС‚Рё РјР°СЃСЃРёРІР°
         fast_sort(mass, left, pivot - 1);
     if (right > pivot)
         fast_sort(mass, pivot + 1, right);
 }
 
-//Сортировка Шелла
+//РЎРѕСЂС‚РёСЂРѕРІРєР° РЁРµР»Р»Р°
 void shell_sort(int* mass, int len)
 {
     int i, j, step;
@@ -213,38 +213,38 @@ void shell_sort(int* mass, int len)
         }
 }
 
-//Сортировка Шейкера
+//РЎРѕСЂС‚РёСЂРѕРІРєР° РЁРµР№РєРµСЂР°
 void sheker_sort(int* mass, int len)
 {
-    int left = 0, right = len - 1; // левая и правая границы сортируемой области массива
-    int flagSH = 1;  // флаг наличия перемещений
-    // Выполнение цикла пока левая граница не сомкнётся с правой
-    // и пока в массиве имеются перемещения
+    int left = 0, right = len - 1; // Р»РµРІР°СЏ Рё РїСЂР°РІР°СЏ РіСЂР°РЅРёС†С‹ СЃРѕСЂС‚РёСЂСѓРµРјРѕР№ РѕР±Р»Р°СЃС‚Рё РјР°СЃСЃРёРІР°
+    int flagSH = 1;  // С„Р»Р°Рі РЅР°Р»РёС‡РёСЏ РїРµСЂРµРјРµС‰РµРЅРёР№
+    // Р’С‹РїРѕР»РЅРµРЅРёРµ С†РёРєР»Р° РїРѕРєР° Р»РµРІР°СЏ РіСЂР°РЅРёС†Р° РЅРµ СЃРѕРјРєРЅС‘С‚СЃСЏ СЃ РїСЂР°РІРѕР№
+    // Рё РїРѕРєР° РІ РјР°СЃСЃРёРІРµ РёРјРµСЋС‚СЃСЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ
     while ((left < right) && flagSH > 0)
     {
         flagSH = 0;
-        for (int i = left; i < right; i++)  //двигаемся слева направо
+        for (int i = left; i < right; i++)  //РґРІРёРіР°РµРјСЃСЏ СЃР»РµРІР° РЅР°РїСЂР°РІРѕ
         {
-            if (mass[i] > mass[i + 1]) // если следующий элемент меньше текущего,
-            {             // меняем их местами
+            if (mass[i] > mass[i + 1]) // РµСЃР»Рё СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚ РјРµРЅСЊС€Рµ С‚РµРєСѓС‰РµРіРѕ,
+            {             // РјРµРЅСЏРµРј РёС… РјРµСЃС‚Р°РјРё
                 double t = mass[i];
                 mass[i] = mass[i + 1];
                 mass[i + 1] = t;
-                flagSH = 1;      // перемещения в этом цикле были
+                flagSH = 1;      // РїРµСЂРµРјРµС‰РµРЅРёСЏ РІ СЌС‚РѕРј С†РёРєР»Рµ Р±С‹Р»Рё
             }
         }
-        right--; // сдвигаем правую границу на предыдущий элемент
-        for (int i = right; i > left; i--)  //двигаемся справа налево
+        right--; // СЃРґРІРёРіР°РµРј РїСЂР°РІСѓСЋ РіСЂР°РЅРёС†Сѓ РЅР° РїСЂРµРґС‹РґСѓС‰РёР№ СЌР»РµРјРµРЅС‚
+        for (int i = right; i > left; i--)  //РґРІРёРіР°РµРјСЃСЏ СЃРїСЂР°РІР° РЅР°Р»РµРІРѕ
         {
-            if (mass[i - 1] > mass[i]) // если предыдущий элемент больше текущего,
-            {            // меняем их местами
+            if (mass[i - 1] > mass[i]) // РµСЃР»Рё РїСЂРµРґС‹РґСѓС‰РёР№ СЌР»РµРјРµРЅС‚ Р±РѕР»СЊС€Рµ С‚РµРєСѓС‰РµРіРѕ,
+            {            // РјРµРЅСЏРµРј РёС… РјРµСЃС‚Р°РјРё
                 double t = mass[i];
                 mass[i] = mass[i - 1];
                 mass[i - 1] = t;
-                flagSH = 1;    // перемещения в этом цикле были
+                flagSH = 1;    // РїРµСЂРµРјРµС‰РµРЅРёСЏ РІ СЌС‚РѕРј С†РёРєР»Рµ Р±С‹Р»Рё
             }
         }
-        left++; // сдвигаем левую границу на следующий элемент
+        left++; // СЃРґРІРёРіР°РµРј Р»РµРІСѓСЋ РіСЂР°РЅРёС†Сѓ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
     }
 }
 
@@ -272,17 +272,17 @@ int main() {
     int exit_flag;
     COORD cursorPos;
 
-    char* main_menu[MAIN_MENU_SIZE] = { "Режим эксперимента","Алгоритмы", "Настройки", "Выход" };
+    char* main_menu[MAIN_MENU_SIZE] = { "Р РµР¶РёРј СЌРєСЃРїРµСЂРёРјРµРЅС‚Р°","РђР»РіРѕСЂРёС‚РјС‹", "РќР°СЃС‚СЂРѕР№РєРё", "Р’С‹С…РѕРґ" };
 
-    char* experiment_menu[EXPERIMENT_MENU_SIZE] = { "Сравнение сортировок","Эффективность", "Назад" };
-    char* efficiency_menu[EFFICIENCY_MENU_SIZE] = { "Сортировка пузырьком","Сортировка Хоара", "Сортировка Шелла", "Шейкерная сортировка", "Задать массив", "Назад" };
+    char* experiment_menu[EXPERIMENT_MENU_SIZE] = { "РЎСЂР°РІРЅРµРЅРёРµ СЃРѕСЂС‚РёСЂРѕРІРѕРє","Р­С„С„РµРєС‚РёРІРЅРѕСЃС‚СЊ", "РќР°Р·Р°Рґ" };
+    char* efficiency_menu[EFFICIENCY_MENU_SIZE] = { "РЎРѕСЂС‚РёСЂРѕРІРєР° РїСѓР·С‹СЂСЊРєРѕРј","РЎРѕСЂС‚РёСЂРѕРІРєР° РҐРѕР°СЂР°", "РЎРѕСЂС‚РёСЂРѕРІРєР° РЁРµР»Р»Р°", "РЁРµР№РєРµСЂРЅР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°", "Р—Р°РґР°С‚СЊ РјР°СЃСЃРёРІ", "РќР°Р·Р°Рґ" };
 
-    char* algorithms_menu[ALGORITHMS_MENU_SIZE] = { "Поиск", "Сортировка", "Назад" };
-    char* search_menu[SEARHC_MENU_SIZE] = { "Наивный поиск", "Бинарный поиск", "Назад" };
-    char* sort_menu[SORT_MENU_SIZE] = { "Сортировка пузырьком","Сортировка Хоара", "Сортировка Шелла", "Шейкерная сортировка", "Назад" };
+    char* algorithms_menu[ALGORITHMS_MENU_SIZE] = { "РџРѕРёСЃРє", "РЎРѕСЂС‚РёСЂРѕРІРєР°", "РќР°Р·Р°Рґ" };
+    char* search_menu[SEARHC_MENU_SIZE] = { "РќР°РёРІРЅС‹Р№ РїРѕРёСЃРє", "Р‘РёРЅР°СЂРЅС‹Р№ РїРѕРёСЃРє", "РќР°Р·Р°Рґ" };
+    char* sort_menu[SORT_MENU_SIZE] = { "РЎРѕСЂС‚РёСЂРѕРІРєР° РїСѓР·С‹СЂСЊРєРѕРј","РЎРѕСЂС‚РёСЂРѕРІРєР° РҐРѕР°СЂР°", "РЎРѕСЂС‚РёСЂРѕРІРєР° РЁРµР»Р»Р°", "РЁРµР№РєРµСЂРЅР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°", "РќР°Р·Р°Рґ" };
 
-    char* settings_menu[SETTINGS_MENU_SIZE] = { "Задать массив", "Показать текущий массив", "Изменить путь до рабочей директории", "Назад" };
-    char* set_array_menu[SET_ARRAY_MENU_SIZE] = { "Задать вручную", "Сгенерировать случайно", "Прочитать из файла", "Назад" };
+    char* settings_menu[SETTINGS_MENU_SIZE] = { "Р—Р°РґР°С‚СЊ РјР°СЃСЃРёРІ", "РџРѕРєР°Р·Р°С‚СЊ С‚РµРєСѓС‰РёР№ РјР°СЃСЃРёРІ", "РР·РјРµРЅРёС‚СЊ РїСѓС‚СЊ РґРѕ СЂР°Р±РѕС‡РµР№ РґРёСЂРµРєС‚РѕСЂРёРё", "РќР°Р·Р°Рґ" };
+    char* set_array_menu[SET_ARRAY_MENU_SIZE] = { "Р—Р°РґР°С‚СЊ РІСЂСѓС‡РЅСѓСЋ", "РЎРіРµРЅРµСЂРёСЂРѕРІР°С‚СЊ СЃР»СѓС‡Р°Р№РЅРѕ", "РџСЂРѕС‡РёС‚Р°С‚СЊ РёР· С„Р°Р№Р»Р°", "РќР°Р·Р°Рґ" };
 
     int* mass;
     int len = 20;
@@ -293,7 +293,7 @@ int main() {
     exit_flag = 0;
     choose_pos = 0;
 
-    char fold[100] = "C:\\Users\\Пользователи\\User\\sourse\\repos\\";
+    char fold[100] = "C:\\Users\\РџРѕР»СЊР·РѕРІР°С‚РµР»Рё\\User\\sourse\\repos\\";
     char filename[100] = "input.txt";
     char filepath[200];
 
@@ -380,13 +380,13 @@ int main() {
 
                     iKey = _getch();
                 }
-   //Сравнение сортировок
+   //РЎСЂР°РІРЅРµРЅРёРµ СЃРѕСЂС‚РёСЂРѕРІРѕРє
                 if (choose_pos == 0) {
                     system("cls");
                     printf("in development\n");
                     system("pause");
                 }
-   //Эффективность
+   //Р­С„С„РµРєС‚РёРІРЅРѕСЃС‚СЊ
                 else if (choose_pos == 1) {
                     system("cls");
 
@@ -478,7 +478,7 @@ int main() {
                 }
             }
         }
-    //Алгоритмы
+    //РђР»РіРѕСЂРёС‚РјС‹
         else if (choose_pos == 1) {
             system("cls");
             int choose_pos;
@@ -525,7 +525,7 @@ int main() {
 
                     iKey = _getch();
                 }
-    //Поиск
+    //РџРѕРёСЃРє
                 if (choose_pos == 0) {
                     system("cls");
 
@@ -576,7 +576,7 @@ int main() {
                         if (choose_pos == 0) {
                             system("cls");
                             int desired_value;
-                            printf("Введите желаемое значение: ");
+                            printf("Р’РІРµРґРёС‚Рµ Р¶РµР»Р°РµРјРѕРµ Р·РЅР°С‡РµРЅРёРµ: ");
                             scanf_s("%d", &desired_value);
                             naive_search(desired_value, mass, len);
                             system("pause");
@@ -593,7 +593,7 @@ int main() {
                         }
                     }
                 }
-    //Сортировка
+    //РЎРѕСЂС‚РёСЂРѕРІРєР°
                 else if (choose_pos == 1) {
                     system("cls");
 
@@ -679,7 +679,7 @@ int main() {
                 }
             }
         }
-    //Настройки
+    //РќР°СЃС‚СЂРѕР№РєРё
         else if (choose_pos == 2) {
             system("cls");
             int choose_pos;
@@ -726,7 +726,7 @@ int main() {
 
                     iKey = _getch();
                 }
-    //Задать массив
+    //Р—Р°РґР°С‚СЊ РјР°СЃСЃРёРІ
                 if (choose_pos == 0) {
                     system("cls");
 
@@ -776,7 +776,7 @@ int main() {
                         }
                         if (choose_pos == 0) {
                             system("cls");
-                            printf("Введите длину массива: ");
+                            printf("Р’РІРµРґРёС‚Рµ РґР»РёРЅСѓ РјР°СЃСЃРёРІР°: ");
                             scanf_s("%d", &len);
                             system("cls");
                             manually_generaye_mass(len, mass);
@@ -785,7 +785,7 @@ int main() {
                         else if (choose_pos == 1) {
                             system("cls");
 
-                            printf("Введите максимальное значение, минимальное значение, кол-во элементов массива: ");
+                            printf("Р’РІРµРґРёС‚Рµ РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ, РјРёРЅРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ, РєРѕР»-РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РјР°СЃСЃРёРІР°: ");
                             scanf_s("%d %d %d", &max_value, &min_value, &len);
                             mass = (int*)malloc(sizeof(int) * len);
                             random_generate_mass(max_value, min_value, len, mass);
@@ -798,12 +798,12 @@ int main() {
                             FILE* input_file = NULL;
                             errno_t error;
                             int size;
-                            error = fopen_s(&input_file, filepath, "r+"); // r – read, w - write
+                            error = fopen_s(&input_file, filepath, "r+"); // r вЂ“ read, w - write
                             if (input_file == NULL) {
                                 printf("Error in input file. Error %d\n", error);
                             }
                             else {
-                                // для ввода использовали бы fprintf(input_file, "0");
+                                // РґР»СЏ РІРІРѕРґР° РёСЃРїРѕР»СЊР·РѕРІР°Р»Рё Р±С‹ fprintf(input_file, "0");
 
                                 if (fscanf_s(input_file, "%d", &size) != 1) {
                                     printf("Error\n");
@@ -829,16 +829,16 @@ int main() {
                         }
                     }
                 }
-    //Показать текущий массив
+    //РџРѕРєР°Р·Р°С‚СЊ С‚РµРєСѓС‰РёР№ РјР°СЃСЃРёРІ
                 else if (choose_pos == 1) {
                     system("cls");
                     print_mass(mass, len);
                     system("pause");
                 }
-    //Изменить путь до рабочей директории
+    //РР·РјРµРЅРёС‚СЊ РїСѓС‚СЊ РґРѕ СЂР°Р±РѕС‡РµР№ РґРёСЂРµРєС‚РѕСЂРёРё
                 else if (choose_pos == 2) {
                     system("cls");
-                    printf("Введите новую директорию: ");
+                    printf("Р’РІРµРґРёС‚Рµ РЅРѕРІСѓСЋ РґРёСЂРµРєС‚РѕСЂРёСЋ: ");
                     gets(fold);
                     system("pause");
                 }
