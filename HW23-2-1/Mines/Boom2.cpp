@@ -1,6 +1,5 @@
-#include <iostream>
+﻿#include <iostream>
 #include <windows.h>
-#include <iomanip>
 #include <time.h>
 #include <stdio.h>
 using namespace std;
@@ -63,7 +62,7 @@ bool empty(int** Playing_field, int i, int j, const int SIZE)
     }
     return false;
 }
-// открытие пол¤ в точке попадани¤
+// открытие поля в точке попадания
 void clean(int** Playing_field, bool** open, int i, int j, const int SIZE)
 {   // проверим на выход за пределы массива
     if ((i >= 0) && (i < SIZE))
@@ -110,7 +109,7 @@ void clean(int** Playing_field, bool** open, int i, int j, const int SIZE)
     }
 }
 
-// проверка ¤чейки на мину ; выход за пределы возвращает false
+// проверка ячейки на мину ; выход за пределы возвращает false
 bool mine(int** Playing_field, int i, int j, const int SIZE)
 {
     if ((i >= 0) && (i < SIZE))
@@ -151,7 +150,7 @@ bool win_or_lose(int** Playing_field, bool** open, const int SIZE)
     return true;
 }
 
-// в случае проигрыша эта функци¤ откроет все мины
+// в случае проигрыша эта функциz откроет все мины
 void openmines(int** Playing_field, bool** open, const int SIZE)
 {
     for (int i = 0; i < SIZE; i++)
@@ -170,14 +169,12 @@ void final(bool loser, int** Playing_field, bool** open, const int SIZE)
     if (loser)
     {
         cout << endl;
-        cout << "¬џ ѕ–ќ»–јЋ»!";
-        free(Playing_field);
+        cout << "Вы проиграли!";
     }
     else
     {
         cout << endl;
-        cout << "¬џ ¬џ»√–јЋ»!";
-        free(Playing_field);
+        cout << "Вы выиграли!";
     }
     cout << endl;
 }
@@ -187,11 +184,11 @@ void inputSize(int& size)   //запрос на ввод колиство эле
 
     while (true)
     {
-        cout << "¬¬≈ƒ»“≈ –ј«ћ≈– ѕќЋя:" << endl << endl;
+        cout << "ВВЕДИТЕ РАЗМЕР ПОЛЯ:" << endl << endl;
         cin >> size;
         if (cin.fail())
         {
-            cout << "ќЎ»Ѕ ј, ¬¬≈ƒ»“≈ ћ≈Ќ№Ў≈≈ «Ќј„≈Ќ»≈" << endl;
+            cout << "ОШИБКА, ВВЕДИТЕ МЕНЬШЕЕ ЗНАЧЕНИЕ" << endl;
             cin.clear();
             while (cin.get() != '\n');
         }
@@ -203,17 +200,15 @@ void inputSize(int& size)   //запрос на ввод колиство эле
 void rules()
 {
     system("cls");
-    cout << "\t\t\t\t\t\t—јѕ≈–: ѕ–ј¬»Ћј » ќЅў»≈ —¬≈ƒ≈Ќ»я" << endl << endl <<
+    cout << "\t\t\t\t\t\tСАПЕР: ПРАВИЛА И ОБЩИЕ СВЕДЕНИЯ" << endl << endl <<
         endl << endl;
-    cout << "  Ќачните с открыти¤ одной ¤чейки." << endl;
-    cout << "  „исло в ¤чейке показывает, сколько мин скрыто вокруг данной ¤чейки. Ёто число поможет пон¤ть вам, где наход¤тс¤ безопасные ¤чейки, а где наход¤тс¤ бомбы."
+    cout << " Начните с открытия одной ячейки." << endl;
+    cout << " Если в ячейке указано число, оно показывает, сколько мин скрыто в восьми ячейках вокруг данной. Это число помогает понять, где находятся безопасные ячейки."
         << endl;
-    cout << "  ≈сли р¤дом с открытой ¤чейкой есть пуста¤ ¤чейка, то она откроетс¤ автоматически."
+    cout << " Если рядом с открытой ячейкой есть пустая ячейка, то она откроется автоматически."
         << endl;
-    cout << "  ≈сли вы открыли ¤чейку с миной, то игра проиграна." << endl;
-    cout << "  ≈сли в ¤чейке указано число, оно показывает, сколько мин скрыто в восьми ¤чейках вокруг данной. Ёто число помогает пон¤ть, где наход¤тс¤ безопасные ¤чейки."
-        << endl;
-    cout << "  »гра продолжаетс¤ до тех пор, пока вы не откроете все не заминированные ¤чейки."
+    cout << " Если вы открыли ячейку с миной, то игра проиграна." << endl;
+    cout << " Игра продолжается до тех пор, пока вы не откроете все не заминированные ячейки."
         << endl << endl << endl;
     cout << endl << endl << endl << endl << endl << endl;
 }
@@ -229,10 +224,10 @@ int main()
     while (true)
     {
         system("cls");
-        cout << "1 - »√–ј“№ " << endl;
-        cout << "2 - ѕ–ј¬»Ћј »√–џ << —јѕ≈– >> " << endl;
-        cout << "0 - ¬џ’ќƒ" << endl << endl << endl;
-        cout << "—ƒ≈Ћј…“≈ ¬јЎ ¬џЅќ–:" << endl << endl;
+        cout << "1 - Играть " << endl;
+        cout << "2 - ПРАВИЛА ИГРЫ << САПЕР >> " << endl;
+        cout << "0 - ВЫХОД" << endl << endl << endl;
+        cout << "ВАШ ВЫБОР:" << endl << endl;
         cin >> choice;
         cout << endl;
 
@@ -266,7 +261,7 @@ int main()
         }
 
         int i, j;
-        // заполн¤ем массив пол¤ минами
+        // заполняем массив поля минами
         for (int c = 0; c < SIZE - 1; c++)
         {
             do
@@ -277,7 +272,7 @@ int main()
 
             Playing_field[i][j] = -1;
         }
-        // заполн¤ем массив пол¤ цифрами
+        // заполняем массив поля цифрами
         for (int i = 0; i < SIZE; i++)
         {
             for (int j = 0; j < SIZE; j++)
@@ -306,7 +301,7 @@ int main()
 
 
             char input_coordinate[4]{ '\0' };
-            cout << "¬ведите координаты: ";
+            cout << "Введите координаты: ";
             cin.clear();
             cin.ignore(100, '\n');
             cin.get(input_coordinate, 4);
@@ -322,20 +317,20 @@ int main()
             }
             else
             {
-                std::cout << "Ќеправильный ввод!"; _getch();
+                std::cout << "Неправильный ввод!"; _getch();
                 continue;
             }
 
             i = input_coordinate[1] - 48;
             if (i < 0 && 9 < i)
             {
-                std::cout << "Ќеправильный ввод!";
+                std::cout << "Неправильный ввод!";
                 std::cout << i;
                 _getch();
                 continue;
             }
 
-            // далее провер¤ем все восемь окрестных полей на пустые клетки показываем некий кусок пол¤
+            //  проверка всех восемь окрестных полей на пустые клетки
             clean(Playing_field, open, i, j, SIZE);
 
             if (mine(Playing_field, i, j, SIZE))
@@ -370,7 +365,7 @@ int main()
         break;
 
         default:
-            cout << "ќшибка, попробуйте еще раз, нажмите кнопку <Enter>, чтобы повторить попытку"
+            cout << "Ошибка, попробуйте еще раз, нажмите кнопку <Enter>, чтобы повторить попытку"
                 << endl;
             break;
         }
