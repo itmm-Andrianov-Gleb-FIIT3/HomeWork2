@@ -1,77 +1,78 @@
-п»ї#include <iostream>
+#include <iostream>
 #include <windows.h>
 #include <time.h>
 #include <stdio.h>
-#include "conio.h"
 using namespace std;
-
-// РЎРѕР·РґР°РЅРёРµ РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ
+//  1
+void show_of_mines()
+{
+    cout << "* ";
+}
 void print_array_2D(int** Playing_field, bool** open, const int SIZE)
 {
-    cout << " ";
     char strLetters[30] = { "ABCDEFGHFGHIJKLMNOPQRSTUVWXYZ" };
-    cout << "  ";
-    for (int i = 0; i < SIZE; i++){
+    cout << " ";
+    for (int i = 0; i < SIZE; i++) {
         cout << " " << strLetters[i];
     }
     cout << endl;
-    cout << endl;
 
-    for (int x = 0; x < SIZE; x++){
-        if (x < 10) 
-            cout << " " << x << "  ";
-        else        
-            cout << x << "  ";
+    for (int x = 0; x < SIZE; x++) {
+        if (x < 10)
+            cout << x << " ";
+        else
+            cout << x << "";
 
-        for (int y = 0; y < SIZE; y++){
+        for (int y = 0; y < SIZE; y++) {
 
-            if (open[x][y]){
+            if (open[x][y]) {
 
-                switch (Playing_field[x][y]){
+                switch (Playing_field[x][y]) {
 
                 case -1:
-                    cout << "* ";
+                    show_of_mines();
                     break;
 
                 case 0:
-                    cout << "o ";
+                    cout << "* ";
                     break;
 
                 default:
                     cout << Playing_field[x][y] << " ";
                 }
             }
-            else{
-                cout << "# ";
+            else {
+                cout << "X ";
             }
         }
         cout << endl;
     }
 }
-// РџСЂРѕРІРµСЂРєР° СЏС‡РµР№РєРё РЅР° РїСѓСЃС‚РѕС‚Сѓ (true), РІС‹С…РѕРґ Р·Р° РїСЂРµРґРµР»С‹ РјР°СЃСЃРёРІР° РІРѕР·РІСЂР°С‰Р°РµС‚ false
+
+// проверяет ячейку на пустоту (true), выход за пределы массива возвращает false
 bool empty(int** Playing_field, int i, int j, const int SIZE)
 {
     if ((i >= 0) && (i < SIZE))
     {
         if ((j >= 0) && (j < SIZE))
         {
-            if (Playing_field[i][j] == 0) 
-               return true;
+            if (Playing_field[i][j] == 0)
+                return true;
         }
     }
     return false;
 }
-// РћС‚РєСЂС‹С‚РёРµ РїРѕР»СЏ РІ С‚РѕС‡РєРµ РїРѕРїР°РґР°РЅРёСЏ
+// открытие поля в точке попадания
 void clean(int** Playing_field, bool** open, int i, int j, const int SIZE)
-{   // РїСЂРѕРІРµСЂРёРј РЅР° РІС‹С…РѕРґ Р·Р° РїСЂРµРґРµР»С‹ РјР°СЃСЃРёРІР°
+{   // проверим на выход за пределы массива
     if ((i >= 0) && (i < SIZE))
     {
         if ((j >= 0) && (j < SIZE))
-        {   // РїСЂРѕРІРµСЂРёРј, РЅРµ Р±С‹Р»Рѕ Р»Рё РѕС‚РєСЂС‹С‚Рѕ РїРѕР»Рµ СЂР°РЅСЊС€Рµ
+        {   // проверим, не было ли открыто поле раньше
             if (!open[i][j])
             {
-                open[i][j] = true;  //РѕС‚РєСЂРѕРµРј
-                // РµСЃР»Рё РїРѕР»Рµ РїСѓСЃС‚РѕРµ (=0), РїСЂРѕСЃС‚Рѕ РїРѕРѕС‚РєСЂС‹РІР°РµРј РІСЃРµС… РµРіРѕ СЃРѕСЃРµРґРµР№
+                open[i][j] = true;  //откроем
+                // если поле пустое (=0), просто пооткрываем всех его соседей
                 if (Playing_field[i][j] == 0)
                 {
                     clean(Playing_field, open, i - 1, j - 1, SIZE);
@@ -83,7 +84,7 @@ void clean(int** Playing_field, bool** open, int i, int j, const int SIZE)
                     clean(Playing_field, open, i + 1, j, SIZE);
                     clean(Playing_field, open, i + 1, j + 1, SIZE);
                 }
-                // РµСЃР»Рё РЅРµ РїСѓСЃС‚РѕРµ (!=0) РѕС‚РєСЂС‹РІР°РµРј С‚РѕР»СЊРєРѕ РїСѓСЃС‚С‹С… (=0) СЃРѕСЃРµРґРµР№
+                // если не пустое (!=0) открываем только пустых (=0) соседей
                 else
                 {
                     if (empty(Playing_field, i - 1, j - 1, SIZE)) clean(Playing_field, open,
@@ -107,14 +108,15 @@ void clean(int** Playing_field, bool** open, int i, int j, const int SIZE)
         }
     }
 }
-// РџСЂРѕРІРµСЂРєР° СЏС‡РµР№РєРё РЅР° РјРёРЅСѓ ; РІС‹С…РѕРґ Р·Р° РїСЂРµРґРµР»С‹ РІРѕР·РІСЂР°С‰Р°РµС‚ false
+
+// проверка ячейки на мину ; выход за пределы возвращает false
 bool mine(int** Playing_field, int i, int j, const int SIZE)
 {
     if ((i >= 0) && (i < SIZE))
     {
         if ((j >= 0) && (j < SIZE))
         {
-            if (Playing_field[i][j] == -1) 
+            if (Playing_field[i][j] == -1)
                 return true;
         }
     }
@@ -134,6 +136,17 @@ void empty_play_space(int** Playing_field, bool** open, const int SIZE)
         }
     }
 }
+// заполняем массив поля минами
+void mine_stacker(int** Playing_field, int i, int j, const int SIZE) {
+    for (int c = 0; c < SIZE - 1; c++) {
+        do {
+            i = rand() % SIZE;
+            j = rand() % SIZE;
+        } while (Playing_field[i][j] != 0);
+
+        Playing_field[i][j] = -1;
+    }
+}
 
 bool win_or_lose(int** Playing_field, bool** open, const int SIZE)
 {
@@ -141,13 +154,14 @@ bool win_or_lose(int** Playing_field, bool** open, const int SIZE)
     {
         for (int y = 0; y < SIZE; y++)
         {
-            if ((Playing_field[x][y] != -1) && (!open[x][y])) 
+            if ((Playing_field[x][y] != -1) && (!open[x][y]))
                 return false;
         }
     }
     return true;
 }
-// Р’ СЃР»СѓС‡Р°Рµ РїСЂРѕРёРіСЂС‹С€Р° СЌС‚Р° С„СѓРЅРєС†РёСЏ РѕС‚РєСЂРѕРµС‚ РІСЃРµ РјРёРЅС‹
+
+// в случае проигрыша эта функция откроет все мины
 void openmines(int** Playing_field, bool** open, const int SIZE)
 {
     for (int i = 0; i < SIZE; i++)
@@ -158,7 +172,7 @@ void openmines(int** Playing_field, bool** open, const int SIZE)
         }
     }
 }
-// Р¤РёРЅР°Р»СЊРЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚
+
 void final(bool loser, int** Playing_field, bool** open, const int SIZE)
 {
     system("cls");
@@ -166,26 +180,26 @@ void final(bool loser, int** Playing_field, bool** open, const int SIZE)
     if (loser)
     {
         cout << endl;
-        cout << "Р’С‹ РїСЂРѕРёРіСЂР°Р»Рё!";
+        cout << "Вы проиграли!";
     }
     else
     {
         cout << endl;
-        cout << "Р’С‹ РІС‹РёРіСЂР°Р»Рё!";
+        cout << "Вы выиграли!";
     }
     cout << endl;
 }
-// Р’РІРѕРґ СЂР°Р·РјРµСЂР° РїРѕР»СЏ
-void inputSize(int& size)   //Р·Р°РїСЂРѕСЃ РЅР° РІРІРѕРґ РєРѕР»РёСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РјР°СЃСЃРёРІР°
+
+void inputSize(int& size)   //запрос на ввод колиство элементов массива
 {
 
     while (true)
     {
-        cout << "Р’Р’Р•Р”РРўР• Р РђР—РњР•Р  РџРћР›РЇ:" << endl << endl;
+        cout << "ВВЕДИТЕ РАЗМЕР ПОЛЯ:" << endl << endl;
         cin >> size;
         if (cin.fail())
         {
-            cout << "РћРЁРР‘РљРђ, Р’Р’Р•Р”РРўР• РњР•РќР¬РЁР•Р• Р—РќРђР§Р•РќРР•" << endl;
+            cout << "ОШИБКА, ВВЕДИТЕ МЕНЬШЕЕ ЗНАЧЕНИЕ" << endl;
             cin.clear();
             while (cin.get() != '\n');
         }
@@ -193,26 +207,25 @@ void inputSize(int& size)   //Р·Р°РїСЂРѕСЃ РЅР° РІРІРѕРґ РєРѕР»РёСЃС‚РІРѕ СЌР»Рµ
     }
 }
 
-
-// РџСЂР°РІРёР»Р° РёРіСЂС‹
+//  2
 void rules()
 {
     system("cls");
-    cout << "\t\t\t\t\t\tРЎРђРџР•Р : РџР РђР’РР›Рђ Р РћР‘Р©РР• РЎР’Р•Р”Р•РќРРЇ" << endl << endl <<
+    cout << "\t\t\t\t\t\tСАПЕР: ПРАВИЛА И ОБЩИЕ СВЕДЕНИЯ" << endl << endl <<
         endl << endl;
-    cout << " РќР°С‡РЅРёС‚Рµ СЃ РѕС‚РєСЂС‹С‚РёСЏ РѕРґРЅРѕР№ СЏС‡РµР№РєРё." << endl;
-    cout << " Р•СЃР»Рё РІ СЏС‡РµР№РєРµ СѓРєР°Р·Р°РЅРѕ С‡РёСЃР»Рѕ, РѕРЅРѕ РїРѕРєР°Р·С‹РІР°РµС‚, СЃРєРѕР»СЊРєРѕ РјРёРЅ СЃРєСЂС‹С‚Рѕ РІ РІРѕСЃСЊРјРё СЏС‡РµР№РєР°С… РІРѕРєСЂСѓРі РґР°РЅРЅРѕР№. Р­С‚Рѕ С‡РёСЃР»Рѕ РїРѕРјРѕРіР°РµС‚ РїРѕРЅСЏС‚СЊ, РіРґРµ РЅР°С…РѕРґСЏС‚СЃСЏ Р±РµР·РѕРїР°СЃРЅС‹Рµ СЏС‡РµР№РєРё."
+    cout << " Начните с открытия одной ячейки." << endl;
+    cout << " Если в ячейке указано число, оно показывает, сколько мин скрыто в восьми ячейках вокруг данной. Это число помогает понять, где находятся безопасные ячейки."
         << endl;
-    cout << " Р•СЃР»Рё СЂСЏРґРѕРј СЃ РѕС‚РєСЂС‹С‚РѕР№ СЏС‡РµР№РєРѕР№ РµСЃС‚СЊ РїСѓСЃС‚Р°СЏ СЏС‡РµР№РєР°, С‚Рѕ РѕРЅР° РѕС‚РєСЂРѕРµС‚СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё."
+    cout << " Если рядом с открытой ячейкой есть пустая ячейка, то она откроется автоматически."
         << endl;
-    cout << " Р•СЃР»Рё РІС‹ РѕС‚РєСЂС‹Р»Рё СЏС‡РµР№РєСѓ СЃ РјРёРЅРѕР№, С‚Рѕ РёРіСЂР° РїСЂРѕРёРіСЂР°РЅР°." << endl;
-    cout << " РРіСЂР° РїСЂРѕРґРѕР»Р¶Р°РµС‚СЃСЏ РґРѕ С‚РµС… РїРѕСЂ, РїРѕРєР° РІС‹ РЅРµ РѕС‚РєСЂРѕРµС‚Рµ РІСЃРµ РЅРµ Р·Р°РјРёРЅРёСЂРѕРІР°РЅРЅС‹Рµ СЏС‡РµР№РєРё."
+    cout << " Если вы открыли ячейку с миной, то игра проиграна." << endl;
+    cout << " Игра продолжается до тех пор, пока вы не откроете все не заминированные ячейки."
         << endl << endl << endl;
     cout << endl << endl << endl << endl << endl << endl;
 }
 
 
-// РњРµРЅСЋ
+#include "conio.h"
 int main()
 {
     srand((unsigned int)time(NULL));
@@ -222,10 +235,10 @@ int main()
     while (true)
     {
         system("cls");
-        cout << "1 - РРіСЂР°С‚СЊ " << endl;
-        cout << "2 - РџР РђР’РР›Рђ РР“Р Р« << РЎРђРџР•Р  >> " << endl;
-        cout << "0 - Р’Р«РҐРћР”" << endl << endl << endl;
-        cout << "Р’РђРЁ Р’Р«Р‘РћР :" << endl << endl;
+        cout << "1 - Играть " << endl;
+        cout << "2 - ПРАВИЛА ИГРЫ << САПЕР >> " << endl;
+        cout << "0 - ВЫХОД" << endl << endl << endl;
+        cout << "ВАШ ВЫБОР:" << endl << endl;
         cin >> choice;
         cout << endl;
 
@@ -259,18 +272,10 @@ int main()
         }
 
         int i, j;
-        // Р—Р°РїРѕР»РЅСЏРµРј РјР°СЃСЃРёРІ РїРѕР»СЏ РјРёРЅР°РјРё
-        for (int c = 0; c < SIZE - 1; c++)
-        {
-            do
-            {
-                i = rand() % SIZE;
-                j = rand() % SIZE;
-            } while (Playing_field[i][j] != 0);
+        // заполняем массив поля минами
+        mine_stacker(Playing_field, i, j, SIZE);
 
-            Playing_field[i][j] = -1;
-        }
-        // Р—Р°РїРѕР»РЅСЏРµРј РјР°СЃСЃРёРІ РїРѕР»СЏ С†РёС„СЂР°РјРё
+        // заполняем массив поля цифрами
         for (int i = 0; i < SIZE; i++)
         {
             for (int j = 0; j < SIZE; j++)
@@ -299,7 +304,7 @@ int main()
 
 
             char input_coordinate[4]{ '\0' };
-            cout << " Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹: ";
+            cout << "Введите координаты: ";
             cin.clear();
             cin.ignore(100, '\n');
             cin.get(input_coordinate, 4);
@@ -307,29 +312,28 @@ int main()
 
             if ((input_coordinate[0] >= 65) && (input_coordinate[0] <= 90))
             {
-                j = input_coordinate[0] - 65; // Р±СѓРєРІР° РІ РїСЂРѕРјРµР¶СѓС‚РєРµ РѕС‚ A РґРѕ Z
+                j = input_coordinate[0] - 65; // буква в промежутке от A до Z
             }
             else if ((input_coordinate[0] >= 97) && (input_coordinate[0] <= 122))
             {
-                j = input_coordinate[0] - 97; // Р±СѓРєРІР° РІ РїСЂРѕРјРµР¶СѓС‚РєРµ РѕС‚ a РґРѕ z
+                j = input_coordinate[0] - 97; // буква в промежутке от a до z
             }
             else
             {
-                std::cout << "РќРµРїСЂР°РІРёР»СЊРЅС‹Р№ РІРІРѕРґ!"; 
-                _getch();
+                std::cout << "Неправильный ввод!"; _getch();
                 continue;
             }
 
             i = input_coordinate[1] - 48;
             if (i < 0 && SIZE <= i)
             {
-                std::cout << "РќРµРїСЂР°РІРёР»СЊРЅС‹Р№ РІРІРѕРґ!";
+                std::cout << "Неправильный ввод!";
                 std::cout << i;
                 _getch();
                 continue;
             }
 
-            //  РџСЂРѕРІРµСЂРєР° РІСЃРµС… РІРѕСЃСЊРјРё РѕРєСЂРµСЃС‚РЅС‹С… РїРѕР»РµР№ РЅР° РїСѓСЃС‚С‹Рµ РєР»РµС‚РєРё
+            //  проверка всех восемь окрестных полей на пустые клетки
             clean(Playing_field, open, i, j, SIZE);
 
             if (mine(Playing_field, i, j, SIZE))
@@ -364,7 +368,7 @@ int main()
         break;
 
         default:
-            cout << "РћС€РёР±РєР°, РїРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·, РЅР°Р¶РјРёС‚Рµ РєРЅРѕРїРєСѓ <Enter>, С‡С‚РѕР±С‹ РїРѕРІС‚РѕСЂРёС‚СЊ РїРѕРїС‹С‚РєСѓ"
+            cout << "Ошибка, попробуйте еще раз, нажмите кнопку <Enter>, чтобы повторить попытку"
                 << endl;
             break;
         }
