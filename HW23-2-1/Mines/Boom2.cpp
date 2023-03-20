@@ -11,23 +11,23 @@ void print_array_2D(int** Playing_field, bool** open, const int SIZE)
     cout << " ";
     char strLetters[30] = { "ABCDEFGHFGHIJKLMNOPQRSTUVWXYZ" };
     cout << "  ";
-    for (int i = 0; i < SIZE; i++){
+    for (int i = 0; i < SIZE; i++) {
         cout << " " << strLetters[i];
     }
     cout << endl;
     cout << endl;
 
-    for (int x = 0; x < SIZE; x++){
-        if (x < 10) 
+    for (int x = 0; x < SIZE; x++) {
+        if (x < 10)
             cout << " " << x << "  ";
-        else        
+        else
             cout << x << "  ";
 
-        for (int y = 0; y < SIZE; y++){
+        for (int y = 0; y < SIZE; y++) {
 
-            if (open[x][y]){
+            if (open[x][y]) {
 
-                switch (Playing_field[x][y]){
+                switch (Playing_field[x][y]) {
 
                 case -1:
                     cout << "* ";
@@ -41,7 +41,7 @@ void print_array_2D(int** Playing_field, bool** open, const int SIZE)
                     cout << Playing_field[x][y] << " ";
                 }
             }
-            else{
+            else {
                 cout << "# ";
             }
         }
@@ -55,8 +55,8 @@ bool empty(int** Playing_field, int i, int j, const int SIZE)
     {
         if ((j >= 0) && (j < SIZE))
         {
-            if (Playing_field[i][j] == 0) 
-               return true;
+            if (Playing_field[i][j] == 0)
+                return true;
         }
     }
     return false;
@@ -114,7 +114,7 @@ bool mine(int** Playing_field, int i, int j, const int SIZE)
     {
         if ((j >= 0) && (j < SIZE))
         {
-            if (Playing_field[i][j] == -1) 
+            if (Playing_field[i][j] == -1)
                 return true;
         }
     }
@@ -141,7 +141,7 @@ bool win_or_lose(int** Playing_field, bool** open, const int SIZE)
     {
         for (int y = 0; y < SIZE; y++)
         {
-            if ((Playing_field[x][y] != -1) && (!open[x][y])) 
+            if ((Playing_field[x][y] != -1) && (!open[x][y]))
                 return false;
         }
     }
@@ -198,14 +198,15 @@ void inputSize(int& size)   //запрос на ввод колиство эле
 void rules()
 {
     system("cls");
-    cout << "\t\t\t\t\t\tСАПЕР: ПРАВИЛА И ОБЩИЕ СВЕДЕНИЯ" << endl << endl <<
+    cout << "\t\t\t\t\t\tСАПЕР: ПРАВИЛА ИГРЫ" << endl << endl <<
         endl << endl;
-    cout << " Начните с открытия одной ячейки." << endl;
-    cout << " Если в ячейке указано число, оно показывает, сколько мин скрыто в восьми ячейках вокруг данной. Это число помогает понять, где находятся безопасные ячейки."
+    cout << " Игровой процесс заключается в открывании ячеек." << endl;
+    cout << " Для введения координат удара используйте поле ''Введите координаты:'', указывая сначало букву удара, затем номер." << endl;
+    cout << " Если в ячейке указано число, оно показывает, сколько мин скрыто в восьми ячейках вокруг онной. Это число помогает понять, где находятся безопасные ячейки."
         << endl;
     cout << " Если рядом с открытой ячейкой есть пустая ячейка, то она откроется автоматически."
         << endl;
-    cout << " Если вы открыли ячейку с миной, то игра проиграна." << endl;
+    cout << " Если вы открыли ячейку с миной, то игра засчитывает вам проигрыш." << endl;
     cout << " Игра продолжается до тех пор, пока вы не откроете все не заминированные ячейки."
         << endl << endl << endl;
     cout << endl << endl << endl << endl << endl << endl;
@@ -259,8 +260,10 @@ int main()
         }
 
         int i, j;
+        int B_SIZE;
+        B_SIZE = (2 * (SIZE - 2));
         // Заполняем массив поля минами
-        for (int c = 0; c < SIZE - 1; c++)
+        for (int c = 0; c < B_SIZE; c++)
         {
             do
             {
@@ -315,7 +318,7 @@ int main()
             }
             else
             {
-                std::cout << "Неправильный ввод!"; 
+                std::cout << "Неправильный ввод!";
                 _getch();
                 continue;
             }
