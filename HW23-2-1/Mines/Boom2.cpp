@@ -6,7 +6,7 @@
 using namespace std;
 
 // Создание игрового поля
-void print_array_2D(int** Playing_field, bool** open, const int SIZE)
+void print_field(int** Playing_field, bool** open, const int SIZE)
 {
     cout << " ";
     char strLetters[30] = { "ABCDEFGHFGHIJKLMNOPQRSTUVWXYZ" };
@@ -48,7 +48,7 @@ void print_array_2D(int** Playing_field, bool** open, const int SIZE)
         cout << endl;
     }
 }
-// Проверка ячейки на пустоту (true), выход за пределы массива возвращает false
+// Проверка ячейки на пустоту
 bool empty(int** Playing_field, int i, int j, const int SIZE)
 {
     if ((i >= 0) && (i < SIZE))
@@ -67,11 +67,11 @@ void clean(int** Playing_field, bool** open, int i, int j, const int SIZE)
     if ((i >= 0) && (i < SIZE))
     {
         if ((j >= 0) && (j < SIZE))
-        {   // проверим, не было ли открыто поле раньше
+        {   // Проверим, не было ли открыто поле раньше
             if (!open[i][j])
             {
                 open[i][j] = true;  //откроем
-                // если поле пустое (=0), просто пооткрываем всех его соседей
+                // Если поле пустое (=0), просто открываем всех его соседей
                 if (Playing_field[i][j] == 0)
                 {
                     clean(Playing_field, open, i - 1, j - 1, SIZE);
@@ -83,7 +83,7 @@ void clean(int** Playing_field, bool** open, int i, int j, const int SIZE)
                     clean(Playing_field, open, i + 1, j, SIZE);
                     clean(Playing_field, open, i + 1, j + 1, SIZE);
                 }
-                // если не пустое (!=0) открываем только пустых (=0) соседей
+                // Если не пустое, то открываем только пустых соседей
                 else
                 {
                     if (empty(Playing_field, i - 1, j - 1, SIZE)) clean(Playing_field, open,
@@ -159,10 +159,10 @@ void openmines(int** Playing_field, bool** open, const int SIZE)
     }
 }
 // Финальный результат
-void final(bool loser, int** Playing_field, bool** open, const int SIZE)
+void finale(bool loser, int** Playing_field, bool** open, const int SIZE)
 {
     system("cls");
-    print_array_2D(Playing_field, open, SIZE);
+    print_field(Playing_field, open, SIZE);
     if (loser)
     {
         cout << endl;
@@ -176,7 +176,7 @@ void final(bool loser, int** Playing_field, bool** open, const int SIZE)
     cout << endl;
 }
 // Ввод размера поля
-void inputSize(int& size)   //запрос на ввод колиство элементов массива
+void inputSIZE(int& size)   //запрос на ввод колиство элементов массива
 {
 
     while (true)
@@ -236,7 +236,7 @@ int main()
         {
         case '1':
         {   int SIZE = 0;
-        inputSize(SIZE);
+        inputSIZE(SIZE);
         int** Playing_field = new int* [SIZE];
         bool** open = new bool* [SIZE];
 
@@ -297,7 +297,7 @@ int main()
         {
             system("cls");
             cout << endl << endl;
-            print_array_2D(Playing_field, open, SIZE);
+            print_field(Playing_field, open, SIZE);
             cout << endl;
 
 
@@ -338,12 +338,12 @@ int main()
             if (mine(Playing_field, i, j, SIZE))
             {
                 openmines(Playing_field, open, SIZE);
-                final(true, Playing_field, open, SIZE);
+                finale(true, Playing_field, open, SIZE);
                 break;
             }
             if (win_or_lose(Playing_field, open, SIZE))
             {
-                final(false, Playing_field, open, SIZE);
+                finale(false, Playing_field, open, SIZE);
                 break;
             }
         }
@@ -365,11 +365,6 @@ int main()
         {   rules();
         }
         break;
-
-        default:
-            cout << "Ошибка, попробуйте еще раз, нажмите кнопку <Enter>, чтобы повторить попытку"
-                << endl;
-            break;
         }
         system("pause");
     }
