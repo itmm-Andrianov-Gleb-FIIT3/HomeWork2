@@ -31,134 +31,131 @@ void Pcr(int RogueHealth,int RogueDamage) {
 	std::cout << "\n\n\t\t    WEAPON:Rapier ";
 	std::cout << "\n\t\t    DAMAGE:" << RogueDamage;
 	std::cout << "\n\n\t\t    SPECIAL ABILITY:DODGE";
-	std::cout << "\n\t\t    DODGE: With a 50% chance, ROGUE can DODGE  his enemy's attack.";
+	std::cout << "\n\t\t    DODGE: With a 67% chance, ROGUE can DODGE  his enemy's attack.";
+	std::cout << "\n\t\t    ARMOR:A ROGUE always block 33% of incoming damage.";
 }
 
 void Attack(float WH, float RH, float RD, float WD, float CRD, float CRW, int Name) {
-	
+
+	system("cls");
+
 	int DG;
 	int CRT;
-	
+
+
 	if (Name == 1) {
 		CRT = rand() % 20;
 		if (CRT == 20) {
-			WH = WH - CRD;
+			WH = (WH - CRD);
+			std::cout << "\n\n\t\t\t CRIT!" << "\n\nYOU HAVE DOON " <<  CRD << " DAMAGE";
 		}
 		else {
-			WH = WH - RD;
+			WH = (WH - RD);
+			std::cout << "\n\n\t\t\t YOU HAVE DONE " << RD << " DAMAGE";
 		}
 	}
 	else if (Name == 2) {
 		CRT = rand() % 20;
-		DG = rand() % 2;
-		if (DG == 1) {
-			RH = RH - WD;
+		DG = rand() % 3;
+		if (DG != 1) {
+			std::cout << "\n\n\t\t\t\t DODGE!";
 		}
 		else {
 			if (CRT == 20) {
-				RH = RH - CRW;
+				RH = (RH - CRW);
+				std::cout << "\n\n\t\t\t CRIT!" << "\n\nYOU HAVE DONE " <<  CRW << " DAMAGE";
 			}
 			else {
-				RH = RH - WD;
+				RH = (RH - WD);
+				std::cout << "\n\n\t\t\t YOU HAVE DONE " << WD << " DAMAGE";
 			}
 		}
 	}
-	BattleS(WH, RH, RD, WD, CRD, CRD, Name);
+	_getch();
 }
 
 void Defence(float WH, float RH, float RD, float WD, float CRD, float CRW, int Name) {
-	
+
+	system("cls");
+
 	int DG;
-	int CRT;
-	
+
 	if (Name == 1) {
-		DG = rand() % 2;
+		DG = rand() % 3;
 		if (DG == 1) {
-			RH = RH - WD;
+			RH = (RH - WD);
+			std::cout << "\n\n\t\t\t YOU HAVE TAKEN "<< WD << " DAMAGE";
+		}
+		else {
+			std::cout << "\n\n\t\t\t\t DODGE!";
 		}
 	}
 	else if (Name == 2) {
-		WH = WH - RD;
+		WH = (WH - RD);
+		std::cout << "\n\n\t\t\t YOU HAVE TAKEN " << RD << " DAMAGE";
 	}
-	BattleS(WH, RH, RD, WD, CRD, CRD, Name);
+	_getch();
 }
 
-void Move(float WH, float RH, float RD, float WD, float CRD, float CRW, int Name) {
+void BattleStatsStart(float WH, float RH, float RD, float WD, float CRD, float CRW, int Name) {
+
 	int MV;
+
+	std::cout << "\n\n\t\t WARRIOR HEALTH:" << WH << "\tROGUE HEALTH:" << RH;
+
 	std::cout << "\n\n\t\t\t 1)ATTACK   2)DEFENCE";
 	std::cout << "\n\t\t\t     YOUR MOVE:";
 	std::cin >> MV;
-	
-    if (MV == 1) {
+
+	if (MV == 1) {
 		Attack(WH, RH, RD, WD, CRD, CRW, Name);
+		Defence(WH, RH, RD, WD, CRD, CRW, Name);
 	}
 	else if (MV == 2) {
 		Defence(WH, RH, RD, WD, CRD, CRW, Name);
 	}
-
-}
-
-void BattleStatsStart(float WH, float RH, float RD, float WD, float CRD, float CRW,int Name) {
-
-	std::cout << "\n\n\t\t WARRIOR HEALTH:" << WH << "\tROGUE HEALTH:" << RH;
-
-	if (Name == 2) {
-		std::cout << "\n\n\t\t\t ROGUE GO FIRST";
-		Defence(WH, RH, RD, WD, CRD, CRW, Name);
-	}
-	else if (Name == 1) {
-		Move(WH,RH,RD,WD,CRD,CRW,Name);
-
-	}
-
-}
-
-void BattleS(float WH, float RH, float RD, float WD, float CRD, float CRW, int Name) {
-
-	std::cout << "\n\n\t\t WARRIOR HEALTH:" << WH << "\tROGUE HEALTH:" << RH;
-
-	if (Name == 2) {
-		Move(WH, RH, RD, WD, CRD, CRW, Name);
-	}
-	else if (Name == 1) {
-		Move(WH, RH, RD, WD, CRD, CRW, Name);
-
+	else {
+		system("cls");
+		std::cout << "\n\n\n\n\t\t\t TRY AGAIN";
+		_getch();
 	}
 
 }
 
 void FF(float RogueHealth, float RogueDamage, float WarriorHealth, float WarriorDamage, int Name) {
 
-	float WH, RH, RD ,WD, CRD, CWD;
+	float WH, RH, RD, WD, CRD, CWD;
 
 	WH = WarriorHealth;
 	RH = RogueHealth;
-	RD = RogueDamage/2;
-	WD = WarriorDamage;
+	RD = RogueDamage / 2;
+	WD = WarriorDamage / 1.5;
 	CRD = RogueDamage;
 	CWD = WarriorDamage * 2;
 
 	while (true) {
-		 if (Name == 2) {
-			system("cls");
+		if (Name == 2) {
+			while (WH > 0 && RH >0) {
+				system("cls");
 
-			BattleStatsStart(WH,RH,RD,WD, CRD, CWD,Name);
-
+				BattleStatsStart(WH, RH, RD, WD, CRD, CWD, Name);
+			}
 		}
 		else if (Name == 1) {
-			system("cls");
+			while (WH > 0 && RH > 0) {
+				system("cls");
 
-			BattleStatsStart(WH, RH, RD, WD, CRD, CWD, Name);
-
+				BattleStatsStart(WH, RH, RD, WD, CRD, CWD, Name);
+			}
 		}
 	}
 }
 
 int main() {
-	float WarriorHealth = 70;
+	float WarriorHealth = 80;
 	float RogueHealth = 50;
-	float WarriorDamage = 20;
-	float RogueDamage = 16;
+	float WarriorDamage = 21;
+	float RogueDamage = 14;
 	int Name;
 	
 	while (true) {
@@ -178,7 +175,7 @@ int main() {
 		else if (Name == 2) {
 			system("cls");
 
-			Fighter WARRIOR(70, 20, "Halberd");
+			Fighter WARRIOR(80, 20, "Halberd");
 			std::cout << "\n\n\n\t\t\t YOU CHOOSE WARRIOR";
 			std::cout << "\n\n\t\t    PARAMETERS OF YOUR CHARACTER:";
 			Pcw(WarriorHealth, WarriorDamage);
@@ -201,7 +198,7 @@ int main() {
 		else if (Name == 1) {
 			system("cls");
 
-			Fighter ROGUE(50, 16, "Rapier");
+			Fighter ROGUE(50, 14, "Rapier");
 			std::cout << "\n\n\n\t\t\t YOU CHOOSE ROGUE";
 			std::cout << "\n\n\t\t    PARAMETERS OF YOUR CHARACTER:";
 			Pcr(RogueHealth,RogueDamage);
