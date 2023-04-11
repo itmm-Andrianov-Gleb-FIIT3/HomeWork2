@@ -7,11 +7,11 @@
 class Fighter {
 
 protected:
-	int Health;
-	int Damage;
+	float Health;
+	float Damage;
 	std::string Weapon;
 public:
-	Fighter(int _Health, int _Damage, std::string _Weapon) {
+	Fighter(float _Health, float _Damage, std::string _Weapon) {
 		Health = _Health;
 		Damage = _Damage;
 		Weapon = _Weapon;
@@ -200,6 +200,26 @@ void FF(float RogueHealth, float RogueDamage, float WarriorHealth, float Warrior
 	}
 }
 
+void WS() {
+
+}
+
+void RS(){
+
+}
+
+void input(int Name) {
+
+	while (true) {
+		if (Name == 1) {
+
+		}
+		else if (Name == 2) {
+
+		}
+    }
+}
+
 int main() {
 	float WarriorHealth = 80;
 	float RogueHealth = 50;
@@ -224,7 +244,9 @@ int main() {
 		else if (Name == 2) {
 			system("cls");
 
-			Fighter WARRIOR(80, 20, "Halberd");
+			input(Name);
+
+			Fighter WARRIOR(80, 21, "Halberd");
 			std::cout << "\n\n\n\t\t\t YOU CHOOSE WARRIOR";
 			std::cout << "\n\n\t\t    PARAMETERS OF YOUR CHARACTER:";
 			Pcw(WarriorHealth, WarriorDamage);
@@ -246,6 +268,8 @@ int main() {
 		}
 		else if (Name == 1) {
 			system("cls");
+
+			input(Name);
 
 			Fighter ROGUE(50, 14, "Rapier");
 			std::cout << "\n\n\n\t\t\t YOU CHOOSE ROGUE";
