@@ -6,27 +6,102 @@
 
 class Fighter {
 
-protected:
+	
+public:
+
 	float Health;
 	float Damage;
 	std::string Weapon;
-public:
-	Fighter(float _Health, float _Damage, std::string _Weapon) {
+	int Name;
+
+	Fighter(float _Health, float _Damage, std::string _Weapon, int _Name) {
 		Health = _Health;
 		Damage = _Damage;
 		Weapon = _Weapon;
+		Name = _Name;
 	}
+
+	float getHealth() { return Health; }
+	float getDamage() { return Damage; }
+	std::string getWeapon() { return Weapon; }
+	int getName() { return Name; }
 };
 
-void Pcw(int WarriorHealth,int WarriorDamage) {
+
+void Attack(Fighter& YOU, Fighter& ENEMY) {
+
+	system("cls");
+
+	int DG;
+	int CRT;
+
+
+	if (YOU.getName() == 1) {
+		CRT = rand() % 20;
+		if (CRT == 19) {
+			ENEMY.Health = (ENEMY.Health - YOU.Damage);
+			std::cout << "\n\n\t\t\t CRIT!" << "\n\nYOU HAVE DONE " << YOU.Damage << " DAMAGE";
+		}
+		else {
+			ENEMY.Health = (ENEMY.Health - (YOU.Damage / 2));
+			std::cout << "\n\n\t\t\t YOU HAVE DONE " << YOU.Damage / 2 << " DAMAGE";
+		}
+	}
+	else if (YOU.Name == 2) {
+		CRT = rand() % 20;
+		DG = rand() % 3;
+		if (DG != 1) {
+			std::cout << "\n\n\t\t\t\t DODGE!";
+		}
+		else {
+			if (CRT == 19) {
+				ENEMY.Health = (ENEMY.Health - (YOU.Damage * 2));
+				std::cout << "\n\n\t\t\t CRIT!" << "\n\nYOU HAVE DONE " << YOU.Damage * 2 << " DAMAGE";
+			}
+			else {
+				ENEMY.Health = (ENEMY.Health - YOU.Damage);
+				std::cout << "\n\n\t\t\t YOU HAVE DONE " << YOU.Damage << " DAMAGE";
+			}
+		}
+	}
+
+	_getch();
+
+}
+
+void Defence(Fighter& YOU, Fighter& ENEMY) {
+
+	system("cls");
+
+	int DG;
+
+	if (YOU.Name == 1) {
+		DG = rand() % 3;
+		if (DG == 1) {
+			YOU.Health = (YOU.Health - ENEMY.Damage);
+			std::cout << "\n\n\t\t\t YOU HAVE TAKEN " << ENEMY.Damage << " DAMAGE";
+		}
+		else {
+			std::cout << "\n\n\t\t\t\t DODGE!";
+		}
+	}
+	else if (YOU.Name == 2) {
+		YOU.Health = (YOU.Health - (ENEMY.Damage / 2));
+		std::cout << "\n\n\t\t\t YOU HAVE TAKEN " << (ENEMY.Damage / 2) << " DAMAGE";
+	}
+	_getch();
+
+}
+
+void Pcw(float WarriorHealth,float WarriorDamage, std::string WarriorWeapon) {
 	std::cout << "\n\n\t\t    HEALTH:" << WarriorHealth;
-	std::cout << "\n\n\t\t    WEAPON:Halberd ";
+	std::cout << "\n\n\t\t    WEAPON:" << WarriorWeapon;
 	std::cout << "\n\t\t    DAMAGE:" << WarriorDamage;
 	std::cout << "\n\n\t\t    SPECIAL ABILITY:ARMOR";
 	std::cout << "\n\t\t    ARMOR:A WARRIOR always block 50% of incoming damage.";
 }
 
-void Pcr(int RogueHealth,int RogueDamage) {
+void Pcr(float RogueHealth, float RogueDamage, std::string RogueWeapon) {
 	std::cout << "\n\n\t\t    HEALTH:" << RogueHealth;
 	std::cout << "\n\n\t\t    WEAPON:Rapier ";
 	std::cout << "\n\t\t    DAMAGE:" << RogueDamage;
@@ -35,196 +110,169 @@ void Pcr(int RogueHealth,int RogueDamage) {
 	std::cout << "\n\t\t    ARMOR:A ROGUE always block 33% of incoming damage.";
 }
 
-void VS(float WH, float RH, float RD, float WD, float CRD, float CRW, int Name) {
+void VS(Fighter& YOU, Fighter& ENEMY) {
 	
 	system("cls");
 	
 
-
-		if (WH >= (RH - 30)) {
+	if (YOU.Name == 2) {
+		if (YOU.Health >= (ENEMY.Health - 30)) {
 			std::cout << "\n\n\t\t\t ROGUE HEALTH << WARRIOR HEALTH";
 		}
-		else if ((WH < (RH - 30)) && WH > RH) {
+		else if ((YOU.Health < (ENEMY.Health - 30)) && YOU.Health > ENEMY.Health) {
 			std::cout << "\n\n\t\t\t ROGUE HEALTH < WARRIOR HEALTH";
 		}
-		else if (WH == RH) {
+		else if (YOU.Health == ENEMY.Health) {
 			std::cout << "\n\n\t\t\t ROGUE HEALTH == WARRIOR HEALTH";
 		}
-		else if (WH < RH && (RH < (WH - 30))) {
+		else if (YOU.Health < ENEMY.Health && (ENEMY.Health < (YOU.Health - 30))) {
 			std::cout << "\n\n\t\t\t ROGUE HEALTH > WARRIOR HEALTH";
 		}
-		else if ((RH >= (WH - 30))) {
+		else if ((ENEMY.Health >= (YOU.Health - 30))) {
 			std::cout << "\n\n\t\t\t ROGUE HEALTH >> WARRIOR HEALTH";
 		}
 
 
 
-		if (WD >= (RD * 4)) {
+		if (YOU.Damage >= (ENEMY.Damage * 4)) {
 			std::cout << "\n\n\t\t\t ROGUE DAMAGE << WARRIOR DAMAGE";
 		}
-		else if ((WD < (RD * 4)) && WD > RD) {
+		else if ((YOU.Damage < (ENEMY.Damage * 4)) && YOU.Damage > ENEMY.Damage) {
 			std::cout << "\n\n\t\t\t ROGUE DAMAGE < WARRIOR DAMAGE";
 		}
-		else if (WD == RD) {
+		else if (YOU.Damage == ENEMY.Damage) {
 			std::cout << "\n\n\t\t\t ROGUE DAMAGE == WARRIOR DAMAGE";
 		}
-		else if (WD < RD && (RD < (WD * 2))) {
+		else if (YOU.Damage < ENEMY.Damage && (ENEMY.Damage < (YOU.Damage * 2))) {
 			std::cout << "\n\n\t\t\t ROGUE DAMAGE > WARRIOR DAMAGE";
 		}
-		else if ((RD >= (WD * 2 ))) {
+		else if ((ENEMY.Damage >= (YOU.Damage * 2))) {
 			std::cout << "\n\n\t\t\t ROGUE DAMAGE >> WARRIOR DAMAGE";
 		}
 
+	}else if (YOU.Name == 1) {
 
+		if (ENEMY.Health >= (YOU.Health - 30)) {
+			std::cout << "\n\n\t\t\t ROGUE HEALTH << WARRIOR HEALTH";
+		}
+		else if ((ENEMY.Health < (YOU.Health - 30)) && ENEMY.Health > YOU.Health) {
+			std::cout << "\n\n\t\t\t ROGUE HEALTH < WARRIOR HEALTH";
+		}
+		else if (ENEMY.Health == YOU.Health) {
+			std::cout << "\n\n\t\t\t ROGUE HEALTH == WARRIOR HEALTH";
+		}
+		else if ((ENEMY.Health < YOU.Health) && (YOU.Health < (ENEMY.Health - 30))) {
+			std::cout << "\n\n\t\t\t ROGUE HEALTH > WARRIOR HEALTH";
+		}
+		else if ((YOU.Health >= (ENEMY.Health - 30))) {
+			std::cout << "\n\n\t\t\t ROGUE HEALTH >> WARRIOR HEALTH";
+		}
+
+
+
+		if (ENEMY.Damage >= (YOU.Damage * 4)) {
+			std::cout << "\n\n\t\t\t ROGUE DAMAGE << WARRIOR DAMAGE";
+		}
+		else if ((ENEMY.Damage < (YOU.Damage * 4)) && ENEMY.Damage > YOU.Damage) {
+			std::cout << "\n\n\t\t\t ROGUE DAMAGE < WARRIOR DAMAGE";
+		}
+		else if (ENEMY.Damage == YOU.Damage) {
+			std::cout << "\n\n\t\t\t ROGUE DAMAGE == WARRIOR DAMAGE";
+		}
+		else if ((ENEMY.Damage < YOU.Damage) && (YOU.Damage < (ENEMY.Damage * 2))) {
+			std::cout << "\n\n\t\t\t ROGUE DAMAGE > WARRIOR DAMAGE";
+		}
+		else if ((YOU.Damage >= (ENEMY.Damage * 2))) {
+			std::cout << "\n\n\t\t\t ROGUE DAMAGE >> WARRIOR DAMAGE";
+		}
+
+	}
 
 	_getch();
 }
 
-void Attack(float WH, float RH, float RD, float WD, float CRD, float CWD, int Name) {
-
-	system("cls");
-
-	int DG;
-	int CRT;
-
-
-	if (Name == 1) {
-		CRT = rand() % 20;
-		if (CRT == 20) {
-			WH = (WH - CRD);
-			std::cout << "\n\n\t\t\t CRIT!" << "\n\nYOU HAVE DOON " <<  CRD << " DAMAGE";
-		}
-		else {
-			WH = (WH - RD);
-			std::cout << "\n\n\t\t\t YOU HAVE DONE " << RD << " DAMAGE";
-		}
-	}
-	else if (Name == 2) {
-		CRT = rand() % 20;
-		DG = rand() % 3;
-		if (DG != 1) {
-			std::cout << "\n\n\t\t\t\t DODGE!";
-		}
-		else {
-			if (CRT == 20) {
-				RH = (RH - CWD);
-				std::cout << "\n\n\t\t\t CRIT!" << "\n\nYOU HAVE DONE " << CWD << " DAMAGE";
-			}
-			else {
-				RH = (RH - WD);
-				std::cout << "\n\n\t\t\t YOU HAVE DONE " << WD << " DAMAGE";
-			}
-		}
-	}
-	_getch();
-}
-
-void Defence(float WH, float RH, float RD, float WD, float CRD, float CWD, int Name) {
-
-	system("cls");
-
-	int DG;
-
-	if (Name == 1) {
-		DG = rand() % 3;
-		if (DG == 1) {
-			RH = (RH - WD);
-			std::cout << "\n\n\t\t\t YOU HAVE TAKEN "<< WD << " DAMAGE";
-		}
-		else {
-			std::cout << "\n\n\t\t\t\t DODGE!";
-		}
-	}
-	else if (Name == 2) {
-		WH = (WH - RD);
-		std::cout << "\n\n\t\t\t YOU HAVE TAKEN " << RD << " DAMAGE";
-	}
-	_getch();
-}
-
-void BattleStatsStart(float WH, float RH, float RD, float WD, float CRD, float CWD, int Name) {
+void BattleStatsStart(Fighter& YOU, Fighter& ENEMY) {
 
 	system("cls");
 
 	int MV;
 
-	std::cout << "\n\n\t\t WARRIOR HEALTH:" << WH << "\tROGUE HEALTH:" << RH;
+	while (YOU.Health > 0 && ENEMY.Health > 0) {
 
-	std::cout << "\n\n\t\t\t 1)ATTACK   2)DEFENCE";
-	std::cout << "\n\t\t\t     YOUR MOVE:";
-	std::cin >> MV;
 
-	if (MV == 1) {
-		Attack(WH, RH, RD, WD, CRD, CWD, Name);
-		Defence(WH, RH, RD, WD, CRD, CWD, Name);
+		if (YOU.Name == 2) {
+			std::cout << "\n\n\t\t WARRIOR HEALTH:" << YOU.Health << "\tROGUE HEALTH:" << ENEMY.Health;
+		}
+		else if (YOU.Name == 1) {
+			std::cout << "\n\n\t\t WARRIOR HEALTH:" << ENEMY.Health << "\tROGUE HEALTH:" << YOU.Health;
+		}
+
+
+		std::cout << "\n\n\t\t\t 1)ATTACK   2)DEFENCE";
+		std::cout << "\n\t\t\t     YOUR MOVE:";
+		std::cin >> MV;
+
+		if (MV == 1) {
+			Attack(YOU, ENEMY);
+			Defence(YOU, ENEMY);
+			system("cls");
+		}
+		else if (MV == 2) {
+			Defence(YOU, ENEMY);
+			system("cls");
+		}
+		else {
+			system("cls");
+			std::cout << "\n\n\n\n\t\t\t TRY AGAIN";
+			_getch();
+		}
 	}
-	else if (MV == 2) {
-		Defence(WH, RH, RD, WD, CRD, CWD, Name);
+
+	system("cls");
+
+	if (YOU.Health > 0 && ENEMY.Health <= 0) {
+		std::cout << "\n\n\t\t\t   YOU WON!";
 	}
-	else {
-		system("cls");
-		std::cout << "\n\n\n\n\t\t\t TRY AGAIN";
-		_getch();
+	else if (YOU.Health <= 0 && ENEMY.Health > 0) {
+		std::cout << "\n\n\t\t\t   YOU LOSE!";
 	}
 
 }
 
-void FF(float RogueHealth, float RogueDamage, float WarriorHealth, float WarriorDamage, int Name) {
+void FF(Fighter& YOU, Fighter& ENEMY) {
 
-	float WH, RH, RD, WD, CRD, CWD;
-
-	WH = WarriorHealth;
-	RH = RogueHealth;
-	RD = RogueDamage / 2;
-	WD = WarriorDamage / 1.5;
-	CRD = RogueDamage;
-	CWD = WD * 2;
 
 	while (true) {
-		if (Name == 2) {
-			while (WH > 0 && RH >0) {
+		if (YOU.Name == 2) {
+			while (YOU.Health > 0 && ENEMY.Health) {
 				system("cls");
 
-				VS(WH, RH, RD, WD, CRD, CWD, Name);
-				BattleStatsStart(WH, RH, RD, WD, CRD, CWD, Name);
+				VS(YOU,ENEMY);
+
+				system("cls");
+
+				BattleStatsStart(YOU, ENEMY);
+				break;
 			}
 		}
-		else if (Name == 1) {
-			while (WH > 0 && RH > 0) {
+		else if (YOU.Name == 1) {
+			while (ENEMY.Health > 0 && YOU.Health > 0) {
 				system("cls");
 
-				VS(WH, RH, RD, WD, CRD, CWD, Name);
-				BattleStatsStart(WH, RH, RD, WD, CRD, CWD, Name);
+				VS(YOU, ENEMY);
+
+				system("cls");
+
+				BattleStatsStart(YOU, ENEMY);
+				break;
 			}
 		}
 	}
-}
 
-void WS() {
-
-}
-
-void RS(){
-
-}
-
-void input(int Name) {
-
-	while (true) {
-		if (Name == 1) {
-
-		}
-		else if (Name == 2) {
-
-		}
-    }
 }
 
 int main() {
-	float WarriorHealth = 80;
-	float RogueHealth = 50;
-	float WarriorDamage = 21;
-	float RogueDamage = 14;
+
 	int Name;
 	
 	while (true) {
@@ -244,50 +292,52 @@ int main() {
 		else if (Name == 2) {
 			system("cls");
 
-			input(Name);
 
-			Fighter WARRIOR(80, 21, "Halberd");
+			Fighter WARRIOR(80, 21, "Halberd",2);
 			std::cout << "\n\n\n\t\t\t YOU CHOOSE WARRIOR";
 			std::cout << "\n\n\t\t    PARAMETERS OF YOUR CHARACTER:";
-			Pcw(WarriorHealth, WarriorDamage);
+			Pcw(WARRIOR.getHealth(), WARRIOR.getDamage(), WARRIOR.getWeapon());
 			_getch();
 
 			system("cls");
+
+			Fighter ROGUE(50, 14, "Rapier",1);
 			std::cout << "\n\n\n\t\t\t YOUR ENEMY:";
 			std::cout << "\n\t\t\t  ROGUE";
-			Pcr(RogueHealth, RogueDamage);
+			Pcr(ROGUE.getHealth(), ROGUE.getDamage(), ROGUE.getWeapon());
 			_getch();
 
 			system("cls");
 			std::cout << "\n\n\n\t\t\t IT'S TIME TO FIGHT!";
 			_getch();
 
-			FF(RogueHealth, RogueDamage, WarriorHealth, WarriorDamage,Name);
+			FF(WARRIOR,ROGUE);
 
 			break;
 		}
 		else if (Name == 1) {
 			system("cls");
 
-			input(Name);
 
-			Fighter ROGUE(50, 14, "Rapier");
+			Fighter ROGUE(50, 14, "Rapier",1);
 			std::cout << "\n\n\n\t\t\t YOU CHOOSE ROGUE";
 			std::cout << "\n\n\t\t    PARAMETERS OF YOUR CHARACTER:";
-			Pcr(RogueHealth,RogueDamage);
+			Pcr(ROGUE.getHealth(), ROGUE.getDamage(), ROGUE.getWeapon());
 			_getch();
 
 			system("cls");
+
+			Fighter WARRIOR(80, 21, "Halberd",2);
 			std::cout << "\n\n\n\t\t\t YOUR ENEMY:";
 			std::cout << "\n\t\t\t  WARRIOR";
-			Pcw(WarriorHealth, WarriorDamage);
+			Pcw(WARRIOR.getHealth(), WARRIOR.getDamage(), WARRIOR.getWeapon());
 			_getch();
 
 			system("cls");
 			std::cout << "\n\n\n\t\t\t IT'S TIME TO FIGHT!";
 			_getch();
 
-			FF(RogueHealth, RogueDamage, WarriorHealth, WarriorDamage, Name);
+			FF(ROGUE,WARRIOR);
 
 			break;
 		}
