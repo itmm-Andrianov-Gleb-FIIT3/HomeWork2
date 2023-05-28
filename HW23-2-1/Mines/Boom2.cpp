@@ -9,12 +9,11 @@ using namespace std;
 void print_field(int** Playing_field, bool** open, const int SIZE)
 {
     cout << " ";
-    char strLetters[30] = { "ABCDEFGHFGHIJKLMNOPQRSTUVWXYZ" };
+    char strLetters[27] = { "ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
     cout << "  ";
     for (int i = 0; i < SIZE; i++) {
         cout << " " << strLetters[i];
     }
-    cout << endl;
     cout << endl;
 
     for (int x = 0; x < SIZE; x++) {
@@ -147,7 +146,7 @@ bool win_or_lose(int** Playing_field, bool** open, const int SIZE)
     }
     return true;
 }
-// В случае проигрыша эта функция откроет все мины
+// В случае проигрыша, открывает все мины
 void openmines(int** Playing_field, bool** open, const int SIZE)
 {
     for (int i = 0; i < SIZE; i++)
@@ -181,9 +180,9 @@ void inputSIZE(int& size)   //запрос на ввод колиство эле
 
     while (true)
     {
-        cout << "ВВЕДИТЕ РАЗМЕР ПОЛЯ:" << endl << endl;
+        cout << "ВВЕДИТЕ РАЗМЕР ПОЛЯ (ДО 27) :" << endl << endl;
         cin >> size;
-        if (cin.fail())
+        if (size >= 27)
         {
             cout << "ОШИБКА, ВВЕДИТЕ МЕНЬШЕЕ ЗНАЧЕНИЕ" << endl;
             cin.clear();
@@ -202,6 +201,8 @@ void rules()
         endl << endl;
     cout << " Игровой процесс заключается в открывании ячеек." << endl;
     cout << " Для введения координат удара используйте поле ''Введите координаты:'', указывая сначало букву удара, затем номер." << endl;
+    cout << " Если вы хотите ввести число от 0 до 9, вам необходимо поставить  перед ним 0(Ноль) (Пример: f01)."
+        << endl;
     cout << " Если в ячейке указано число, оно показывает, сколько мин скрыто в восьми ячейках вокруг онной. Это число помогает понять, где находятся безопасные ячейки."
         << endl;
     cout << " Если рядом с открытой ячейкой есть пустая ячейка, то она откроется автоматически."
@@ -209,6 +210,7 @@ void rules()
     cout << " Если вы открыли ячейку с миной, то игра засчитывает вам проигрыш." << endl;
     cout << " Игра продолжается до тех пор, пока вы не откроете все не заминированные ячейки."
         << endl << endl << endl;
+
     cout << endl << endl << endl << endl << endl << endl;
 }
 
@@ -318,15 +320,15 @@ int main()
             }
             else
             {
-                std::cout << "Неправильный ввод!";
+                std::cout << " Неправильный ввод!";
                 _getch();
                 continue;
             }
 
-            i = input_coordinate[1] - 48;
+            i = (input_coordinate[1] - 48) * 10 + input_coordinate[2] - 48;
             if (i < 0 && SIZE <= i)
             {
-                std::cout << "Неправильный ввод!";
+                std::cout << " Неправильный ввод!";
                 std::cout << i;
                 _getch();
                 continue;
