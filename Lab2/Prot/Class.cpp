@@ -1,4 +1,7 @@
 #include <iostream>
+#include <stdio.h>
+#include "conio.h"
+#include <time.h>
 
 class FIO {
     std::string firstName;
@@ -25,53 +28,29 @@ private:
     void fix(); // приводит к маленьким буквами (иванов, »ванов и »¬јЌќ¬ - одно и то же)
 };
 
-class Date {
+class DATE {
     int day;
     int month;
     int year;
 public:
-    Date();                   // устанавливает сегодн€шнюю дату
-    Date(std::string);
-    Date(int, int, int);
-    Date(const Date&);
-    ~Date() {}
+    DATE();                   // устанавливает сегодн€шнюю дату
+    DATE(std::string);
+    DATE(int, int, int);
+    DATE(const DATE&);
+    ~DATE() {}
 
-    Date& operator=(const Date&);
+    DATE& operator=(const DATE&);
 
     // дл€ поисков
-    bool operator==(const Date&) const;
-    bool operator<(const Date&) const;
-    bool operator>(const Date&) const;
+    bool operator==(const DATE&) const;
+    bool operator<(const DATE&) const;
+    bool operator>(const DATE&) const;
 
-    friend std::ostream& operator<<(std::ostream&, const Date&);
-    friend std::istream& operator>>(std::istream&, const Date&);
+    friend std::ostream& operator<<(std::ostream&, const DATE&);
+    friend std::istream& operator>>(std::istream&, const DATE&);
 
 private:
     bool check();   // провер€ет корректность введенной даты
-};
-
-class Company {
-    std::string CName;
-    std::string Adress;
-public:
-    Company(std::string, std::string);
-    Company(const Company&);
-    ~Company() {}
-
-    void setLastName(std::string);
-
-    Company& operator=(const Company&);
-
-    // дл€ поисков и сортировки в лексикографическом пор€дке
-    bool operator==(const Company&) const;
-    bool operator<(const Company&) const;
-    bool operator>(const Company&) const;
-
-    friend std::ostream& operator<<(std::ostream&, const Company&);
-    friend std::istream& operator>>(std::istream&, const Company&);
-
-private:
-    void fix();
 };
 
 class Material{
@@ -87,7 +66,6 @@ public:
 
     Material& operator=(const Material&);
 
-    // дл€ поисков и сортировки в лексикографическом пор€дке
     bool operator==(const Material&) const;
     bool operator<(const Material&) const;
     bool operator>(const Material&) const;
@@ -101,44 +79,32 @@ private:
 };
 
 class Phone {
-    std::string phone;
-    /* ... */
+    long int phone;
+public:
+    Phone();
+    Phone(long int);
+    Phone(const Phone&);
+    ~Phone() {}
+  
 };
 
 class Person {
 protected:
     FIO name;
-    Date birthday;
+    DATE birthday;
     Phone number;
 public:
-    Person(FIO, Date, Phone);
+    Person(FIO, DATE, Phone);
     Person(const Person&);
     ~Person() {}
 
     Person& operator=(const Person&);
 
-    /* ... */
-    // точно должны быть: перегрузки вывода, ввода, изменить номер
 };
 
 enum District {
     Avtozavodsky, Kanavinsky, Leninsky, Moskovsky,
     Nizhegorodsky, Prioksky, Sovietsky, Sormovsky
-};
-
-class  Owner : Person {
-    long int ID;
-    District district;
-    float founds;         // средств в рубл€х
-    int discount;         // скидка в процентах
-public:
-    Owner(District, float, int, long int);
-    Owner(const Owner&);
-    ~Owner() {}
-
-    Owner& operator=(const Owner&);
-    /* ... */
-    // точно должны быть: перегрузки вывода, ввода, изменить число рублей на счету, изменить скидку
 };
 
 enum TypeOfWork {
@@ -149,80 +115,124 @@ enum TypeOfWork {
 
 enum Weeksday { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday };
 
-enum Shift { First, Second }; // 2 смены: с 7:00 до 15:00, с 15:00 до 23:00
+enum Shift { First, Second };
 
-class  Vet : Person {
-    long int ID;
-    TypeOfWork* specialty;
-    std::pair<Weeksday, Shift>* worksdays;
-    Date workSince;
+class Work {
+    std::string W;
+    TypeOfWork* WT;
+    std::string B;
+
+    Material* mat;
+    int count;
+
+    float V;
 public:
-    Vet(TypeOfWork*, std::pair<Weeksday, Shift>*, Date, long int);
-    Vet(const Vet&);
-    ~Vet() {
-        delete[] specialty;
-        delete[] worksdays;
+    Work(std::string, TypeOfWork*);
+    Work(const Work&);
+    ~Work();
+
+};
+
+class Company {
+  
+public:
+
+    std::string CName;
+    std::string Adress;
+    Weeksday worksdays;
+    Shift sh;
+    District areal;
+    Phone phone;
+
+    Company(std::string _CName, std::string _Adress, Weeksday, Weeksday, Shift, District, long long  _phone) {
+        CName = _CName;
+        Adress = _Adress;
+        phone = _phone;
+    }
+    Company(const Company&);
+    ~Company() {
     }
 
-    Vet& operator=(const Vet&);
-    /* ... */
-    // точно должны быть: создать, добавить специальность, изменить график, вывести график, расчитать стаж работы,
-    // перегрузки ввода, вывода
+    Company& operator=(const Company&);
+
+    bool operator==(const Company&) const;
+    bool operator<(const Company&) const;
+    bool operator>(const Company&) const;
+
+    friend std::ostream& operator<<(std::ostream&, const Company&);
+    friend std::istream& operator>>(std::istream&, const Company&);
 };
 
-enum Kind { Cat, Dog, Rodent, Other };
+class  ClientRequest: Person {
 
-class Pet {
-    std::string name;
-    Date birthday;
-    float weight;
-    Kind kind;
-    std::string species;
-    Owner* owner;
+    District Dist;
+    Work task;
+    DATE DT;
+    float budget;
+
 public:
-    Pet(std::string, Date, float, Kind, std::string, Owner*);
-    Pet(const Pet&);
-    ~Pet() {}
+    ClientRequest(District*, std::string, DATE, float);
+    ClientRequest(const ClientRequest&);
+    ~ClientRequest() {}
 
-    Pet& operator=(const Pet&);
-    /* ... */
-    // точно должны быть: изменить текущий вес, посчитать текущий возраст (5 л. 8 мес. 3 нед.), перегрузки ввода, вывода
+    ClientRequest& operator=(const ClientRequest&);
 };
 
-class Visit {
-    Pet* pet;
-    Vet* vet;
-    Date date;
+class Quest {
+    ClientRequest Task;
+    Company Owner;
+    DATE date;
+    bool status;
+
     std::string* recomends;
     int count;
-    bool status;                 // осуществлен или нет
 public:
-    Visit();
-    Visit(Pet*, Vet*, Date);
-    Visit(const Visit&);
-    ~Visit() {
+    Quest();
+    Quest(ClientRequest*, Company*, DATE);
+    Quest(const Quest&);
+    ~Quest() {
         if (recomends != nullptr) delete[] recomends;
     }
-    Visit& operator=(const Visit&);
-    // точно должны быть:
-    // создать,
-    // изменить данные питомца (вес),
-    // добавить рекомендацию (если визит закрыть - нельз€),
-    // изменить дату (если визит закрыть - нельз€),
-    // закрыть визит
+
+    bool operator==(const Quest&) const;
+    bool operator<(const Quest&) const;
+    bool operator>(const Quest&) const;
+
 };
 
-class Visits {
-    Visit* archive;   // массив визитов
-    int count;
+class Quests {
+    Quest** archive;
     int size;
-public:
-    Visits() { archive = new Visit[100]; count = 0; size = 100; }
-    ~Visits() { delete[] archive; }
-    bool add();            // добавить визит (если пам€ти не хватает - увеличить)
-    bool del(Visit&);      // удалить визит
-    Visit& find(Visit&);   // найти по ID визита
-    Visit& find(Visit&);   // найти по питомцу (если несколько - они вывод€тс€ на экран (вызываетс€ функци€ вывода),
-    // пользователь находит нужную и выбирает еЄ (также функци€), она возвращаетс€ из метода)
-    void fix(Visit&);      // внести правки в визит (вызываютс€ функции класса Visit)
 };
+
+int main() {
+
+    int Name;
+
+    while (true) {
+        system("cls");
+        std::cout << "\n\n\t\t\t\tWELCOME TO BSS";
+        _getch();
+        system("cls");
+        std::cout << "\n\n\t\t\t\t\t MENU\n";
+        std::cout << "\n\t\t\t 1)LIST OF COMPANIES\n";
+        std::cout << "\t\t\t 2)WRITE YOUR REQUEST\n";
+        std::cout << "\t\t\t 3)LOOK AT LIST OF YOUR REQUESTS\n";
+        std::cout << "\t\t\t 4)DELETE REQUEST\n";
+        std::cout << "\n\t\t\t\t      YOUR GHOICE:";
+        std::cin >> Name;
+
+        if (Name != 1 && Name != 2 && Name != 3 && Name != 4)
+        {
+            system("cls");
+            std::cout << "\n\n\n\t\t\t\t  INCORRECT CHOISE\n\t\t\t\t     TRY AGAIN\n\n";
+            _getch();
+            continue;
+
+        }
+        else if (Name == 1) {
+            system("cls");
+            FIO ARC("ARC", "Zarecnaya 5", "");
+        }
+    }
+}
